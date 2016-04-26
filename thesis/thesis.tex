@@ -1,0 +1,201 @@
+% Eine der drei folgenden Dokumentenklassen muss gewählt werden.
+% Für alle Abgaben außer der finalen Endabgabe darf das 'final'
+% Schlüsselwort NICHT gesetzt sein.
+% Weitere Hinweise sind im Leitfaden zu finden.
+
+%\documentclass[12pt,titlepage,draft]{book}	% Erstellen der Arbeit und Erstabgabe
+%\documentclass[12pt,titlepage]{book}		% Korrigierte Erstabgabe
+\documentclass[12pt,titlepage,final]{book}	% Finale digitale und gedruckte Abgabe
+
+%\usepackage[ngerman]{babel} % Deutsche Version
+
+\usepackage[english]{babel} % Englische Version
+
+\usepackage{iflang}
+
+
+
+
+\usepackage{em-thesis} % Erweitert Klasse book
+% Hier werden automatisch die folgenden Pakete geladen:
+% fontenc, inputenc, graphicx, makeidx, fancyhdr, 
+% array, colortbl, xcolor, longtable, xspace
+
+% Hier weitere eigene Pakete einfügen
+
+\usepackage{listings}
+\lstdefinelanguage{JavaScript} {
+	morekeywords={
+		break,const,continue,delete,do,while,export,for,in,function,
+		if,else,import,in,instanceOf,label,let,new,return,switch,this,
+		throw,try,catch,typeof,var,void,with,yield
+	},
+	sensitive=false,
+	morecomment=[l]{//},
+	morecomment=[s]{/*}{*/},
+	morestring=[b]",
+	morestring=[d]'
+}
+
+\usepackage{color}
+
+%New colors defined below
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{0.95,0.95,0.92}
+\lstset{
+	frame=tb,
+	framesep=5pt,
+	basicstyle=\footnotesize\ttfamily,
+	showstringspaces=false,
+	keywordstyle=\ttfamily\bfseries\color{blue},
+	identifierstyle=\ttfamily,
+	stringstyle=\ttfamily\color{codegreen},
+	commentstyle=\color{codegray},
+	%rulecolor=\color{Gray},
+	xleftmargin=5pt,
+	xrightmargin=5pt,
+	aboveskip=\bigskipamount,
+	belowskip=\bigskipamount
+}
+
+%\usepackage{amsmath} %Erweiterte Satzmöglichkeiten für Mathematik
+%\usepackage{mathpazo} %Palatino-Schrift
+
+% hyperref sollte als letztes Paket geladen werden; dieses ermöglicht Links in PDF
+% Hinweis: Die Verwendung von hyperref fuehrt noch zu identifier-Warnungen wg.
+%          unterschiedlicher Seitennummerierung.
+\usepackage[plainpages=false, pdfpagelabels]{hyperref}
+
+%\usepackage[dvipdfm]{graphicx}
+%\usepackage{bmpsize}
+
+
+%%Informationen fuer die Titelseite
+\thesisauthor{Felix Kiechle}
+\matrikel{1454042}
+\thesistype{Master thesis}
+\thesistitle{Design and Development of a Business-Game-Architecture for Round-Based Games:\newline Business Game Description (BGD) and Business Game Engine (BGE)}
+%\thesissupervisors{Prof. Dr. Andreas Geyer-Schulz} % Form bei einem Betreuer
+\thesissupervisors[M.Sc. Fabian Ball]{Prof. Dr. Andreas Geyer-Schulz} % Form bei zwei Betreuern
+%Startdatum ist optional, bei Nichtgebrauch einfach die Zeile löschen oder auskommentieren
+%\thesisstartdate{08.\ Januar 2011}
+\thesisenddate{11.\ January 2016}
+
+% Beispiele für Trennhilfen, falls Fremdworte oder Spezialausdrücke nicht richtig getrennt werden
+% Wichtig! 
+% Im german-paket sind zusätzlich folgende Trennhinweise enthalten:
+% "- = zusätzliche Trennstelle
+% "| = Vermeidung von Ligaturen und mögliche Trennung (bsp: Schaf"|fell)
+% "~ = Bindestrich an dem keine Trennung erlaubt ist (bsp: bergauf und "~ab)
+% "= = Bindestrich bei dem Worte vor und dahinter getrennt werden dürfen
+% "" = Trennstelle ohne Erzeugung eines Trennstrichs (bsp: und/""oder)
+
+% Trennhinweise für Wörter hier beschreiben
+\hyphenation{
+% Pro-to-koll-in-stan-zen
+% Ma-na-ge-ment  Netz-werk-ele-men-ten
+% Netz-werk Netz-werk-re-ser-vie-rung
+% Netz-werk-adap-ter Fein-ju-stier-ung
+% Da-ten-strom-spe-zi-fi-ka-tion Pa-ket-rumpf
+% Kon-troll-in-stanz
+}
+
+\makeindex
+\begin{document}
+
+% 
+\ifoptionfinal{}{%
+\IfLanguageName{ngerman}{
+	\include{em_includes/coversheet_de}
+}{
+	 \include{em_includes/coversheet_en}
+}
+ \blankpage % Leerseite auf Titelrückseite
+}
+
+% Titelseite einbinden
+\IfLanguageName{ngerman}{
+	\include{em_includes/titlepage_de}
+}{
+	\include{em_includes/titlepage_en}
+}
+\blankpage  %Leerseite auf Titelrückseite
+
+% Erklaerung einbinden
+\IfLanguageName{ngerman}{
+\include{em_includes/declaration_de}
+}{
+% Auch im Englischen bleibt Declaration auf Deutsch!
+%\include{em_includes/declaration_en}
+ \include{em_includes/declaration_de}
+}
+\blankpage  %Leerseite auf Erklaerungsrückseite
+
+\include{ack}
+
+\blankpage
+
+%% Verzeichnisse
+\pagenumbering{roman}
+
+\tableofcontents
+\blankpage
+
+\listoffigures   % Falls gewuenscht, Kommentarzeichen am Anfang entfernen.
+%\blankpage
+
+%\listoftables    % Falls gewuenscht, Kommentarzeichen am Anfang entfernen.
+%\blankpage
+
+
+
+%% Hauptteil
+\pagenumbering{arabic}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Hier beginnt die eigenstaendige Ausarbeitung
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Tipp: Anstatt direkt hier LaTeX-Code einzutippen, kann der Inhalt in anderen Dateien
+%       abgelegt werden und per \input bzw. \include eingebunden werden.
+%       Der Unterschied zwischen \input und \include ist der fehlende Seitenvorschub bei 
+%       \input
+\include{1-intro}
+\include{2-related}
+\include{3-class}
+\include{4-architecture}
+\include{5-implementation}
+\include{6-conclusion}
+
+%% Optional: Anhang
+\appendix
+\chapter{Appendix}
+\include{schnuck}
+\include{beergame}
+
+\cleardoublepage
+
+%% Literatur
+\addcontentsline{toc}{chapter}{\bibname}
+
+
+\IfLanguageName{ngerman}{
+\bibliographystyle{em_includes/emalphde}
+% Alphanumerische Zitierung (EM Style), deutsch. Ggf. durch andere Varianten 
+% im Ordner em_includes austauschen.
+}{
+\bibliographystyle{em_includes/emalphen}
+% Alphanumeric Citation (EM Style), English.
+}
+
+\nocite{*} % Alle Quellen anzeigen, die im Bibfile stehen, auch wenn sie nicht im Text referenziert wurden
+\bibliography{literature}
+
+%% Index
+%\addcontentsline{toc}{chapter}{\indexname}
+\printindex            % Index, Stichwortverzeichnis
+
+\end{document}
+%% end of file

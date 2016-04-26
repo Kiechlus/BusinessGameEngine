@@ -1,0 +1,47 @@
+%% Titelseite
+%% Vorlage $Id: titelseite.tex,v 1.2 2001/01/24 20:13:25 bless Exp bless $
+\titlehead{\includegraphics*[width=4cm]{em_includes/kit_logo_en_4c_positiv}} % end titlehead
+
+\begin{titlepage}
+%\let\footnotesize\small \let\footnoterule\relax
+\begin{center}
+\hbox{}
+\vfill
+{\usebox{\thesistitlesaveone}\par}
+\vskip 1cm
+\usebox{\thesistypesave} at Information Services and Electronic Markets\\
+\usebox{\thesissupervisoronesave}\\
+Institute of Information Systems and Marketing\\
+Department of Economics and Business Engineering\\
+Karlsruhe Institute of Technology\\[2ex]
+of\\[2mm]
+\textbf{\usebox{\thesisauthorsaveone}}\\
+\vspace*{\baselineskip}
+Registration Number: \usebox{\thesismatrikelsave}
+\vskip 1.5cm
+Supervisor: \\[2mm]
+\begin{tabular}{l}
+\usebox{\thesissupervisoronesave} \\
+\usebox{\thesissupervisortwosave} \\
+\end{tabular}
+\vskip 1.5em
+\begin{tabular}{ll}
+\ifthenelse{\boolean{startdatumtext}}{Date of Registration: &}{}
+\usebox{\thesisstartdatesave} \\
+Date of Submission: & \usebox{\thesisenddatesave} \\
+\end{tabular}
+
+\vspace*{3em}
+% add versioning information
+\ifoptionfinal{}{%
+  \ifoptiondraft{%
+  \Large\drafttext{Draft}%
+  }{%
+  \Large\drafttext{Preprint}%
+  }
+}
+\end{center}
+\vfill
+\end{titlepage}
+%% Titelseite Ende
+

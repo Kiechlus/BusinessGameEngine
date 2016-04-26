@@ -1,0 +1,17 @@
+{
+  "name": "BusinessGameArchitecture",
+  "description": "Write your own multiplayer business games and play them on the net. Including data explorer and questionnaire support.",
+  "author": "Felix Kiechle",
+  "dependencies": {
+    "async": "1.x",
+    "body-parser": "^1.13.1",
+    "cookie-parser": "^1.3.5",
+    "csurf": "^1.8.3",
+    "esprima": "2.x",
+    "express": "4.x",
+    "jade": "^1.11.0",
+    "mongodb": "2.x",
+    "node-uuid": "1.x",
+    "socket.io": "1.x"
+  }
+}

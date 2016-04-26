@@ -1,0 +1,194 @@
+a:hover, a:active {
+    text-decoration: underline;
+}
+
+.top-bar a, .tabs a {
+    text-decoration: none;
+}
+
+div.panel ul {
+    margin-left: 20px;
+}
+
+div.row.copyright {
+    margin-top: 44px;
+    padding-top: 11px;
+    border-top: 1px solid #ddd;
+}
+
+.code {
+    border-left: 3px solid #ddd;
+    margin: 5px 3px 8px 15px;
+    padding: 0 0 0 8px;
+}
+
+.textviewContainer {
+    background-color: white;
+}
+
+.textviewContainer, .contentassist {
+    font-family: 'Droid Sans Mono', Menlo, Consolas, 'Courier New', Courier, monospace, sans-serif;
+    font-size: 10pt;
+}
+.contentassist {
+    width: 400px;
+}
+
+pre#editor {
+    border: 1px solid #ccc;
+}
+
+div#info {
+    margin-top: 15px;
+}
+
+div#textfields {
+    margin-bottom: 5px;
+    padding: 0px;
+}
+
+#create {
+    float: left;
+    margin-left: 5px;
+    margin-top: 5px;
+}
+
+/*Submit Button*/
+#submitInput {
+    padding: 6px 7px 7px;
+}
+
+#playAgain{
+    padding: 6px 7px 7px;
+    display: none;
+}
+
+#zeitFarbe {
+    color: #FF0000;
+}
+
+.diagram {
+    width: 100%; 
+    height: 250px;
+    z-index: -1;
+}
+
+#separator {
+    margin-top: 12px;
+    margin-bottom: 12px;
+    border-bottom: 7px solid #eee;
+}
+
+#separator2 {
+    margin-top: 10px;
+    margin-bottom: 5px;
+    border-bottom: 1px dashed #000;
+}
+
+#play, #show, #simulate, #edit, #delete, #analyse {
+    float: left;
+    margin-top: 5px;
+    padding: 0px;
+}
+
+#docu {
+    float: right;
+    margin-top: 5px;
+    padding: 0px;
+}
+
+#play, #simulate{
+    float: left;
+    margin-top: 10px;
+}
+
+.buttonGroup {
+    float: left;
+    margin-right: 5px;
+    margin-top: 5px;
+}
+
+.textviewTooltip {
+    color: black;
+    background-color: #ffffcc;
+    border-color: #aaa;
+}
+
+.annotationRange.readOccurrence {
+    background-color: #ffffcc;
+    border: none;
+}
+
+.annotationRange.writeOccurrence {
+    background-color: #ffffcc;
+    border: 1px solid #ffcc99;
+    margin: -1px;
+    border-radius: 4px;
+}
+
+
+/* Pages */
+
+.pages {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+}
+
+.page {
+  height: 100%;
+  position: absolute;
+  width: 100%;
+}
+/* Login Page */
+
+/*.login.page {
+  background-color: #000;
+}
+
+.login.page .logform {
+  height: 100px;
+  margin-top: -100px;
+  position: absolute;
+
+  text-align: center;
+  top: 50%;
+  width: 100%;
+}
+
+.login.page .logform .usernameInput {
+  background-color: transparent;
+  border: none;
+  border-bottom: 2px solid #fff;
+  outline: none;
+  padding-bottom: 15px;
+  text-align: center;
+  width: 400px;
+}
+
+.login.page .title {
+  font-size: 200%;
+}
+
+.login.page .usernameInput {
+  font-size: 200%;
+  letter-spacing: 3px;
+}
+
+.login.page .title, .login.page .usernameInput {
+  color: #fff;
+  font-weight: 100;
+}*/
+
+
+/* Play page */
+
+.play.page {
+  display: none;
+}
+
+.questionnaire.page {
+  display: none;
+}
+

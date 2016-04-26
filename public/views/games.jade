@@ -1,0 +1,36 @@
+doctype html
+html(lang="en")
+  head
+    meta(charset="UTF-8")
+    meta(name="viewport", content="width=device-width")
+    meta(name="_csrf", content="#{token}")
+    link(rel="stylesheet", href="./css/style.css")
+    link(rel="stylesheet", href="./css/foundation.min.css")
+    script(src="./3rdParty/sha512.js")
+  body
+    // Title and subtitle
+    .row
+      .twelve.columns
+        h3.subheader
+          strong Available business games
+    // Main content
+    .row
+      .twelve.columns
+        #select
+          select#games.four.columns
+        input#create(type="button", value="Create new game")
+        //input#language.two.columns(type="button", disabled="disabled", value="Language description")
+        input#docu.two.columns(type="button", value="Documentation")
+    .row
+      .twelve.columns
+        input#play.one.columns(type="button", value="Play")
+        input#simulate.one.columns(type="button", value="Simulate")
+      .twelve.columns
+        input#show.one.columns(type="button", value="Show code")
+        input#edit.one.columns(type="button", value="Edit")
+        input#delete.one.columns(type="button", value="Delete")
+      .twelve.columns
+        input#analyse.two.columns(type="button", value="Download game data")
+    script(src="./games.js")
+    script(src='./modules.js')
+    script(src="http://ajax.googleapis.com/ajax/libs/jquery/1.6/jquery.min.js") // needs to be higher than 1.5 because of the prefilter function

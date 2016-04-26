@@ -1,0 +1,23 @@
+\chapter{Introduction}
+\label{cha:intro}
+
+Simulations are an essential tool to teach pilots, power plant operators, managers and experts in complex decision situations. 
+Simulations are used to train regular work processes as well as emergencies:
+landing a plane during a storm can be best trained with the help of realistic simulators.
+
+Management simulations, also referred to as business games, gaming simulations, business simulations or serious games, are used to train managers, experts and students to get a better understanding of the effects of decisions in complex systems like markets and supply chains. They are designed to teach management principles, strategies, dynamics and sustainability. 
+One of the earliest examples is the Beer Distribution Game (beergame) \cite{JForrester1961,jarmain,beergame}.
+It demonstrates the dynamics of a supply chain and illustrates the bullwhip effect.
+
+Many business games are round-based. This means that the game is played for one or several rounds and that the players have to take one or several decisions in each round independently from each other. These decisions, and possibly also the decisions from previous rounds, result in one or several outcomes of a round. The players take their decisions based on the game history and based on their individual strategy. 
+For example in the Beergame, each player represents a part of the supply chain and has to decide in each round which amount of beer he is going to order. He takes this decision based on the orders from his client in the supply chain, which arrive with a delay of one or several rounds, and based on his inventory. Storing beer results in inventory costs, unfulfilled orders lead to backlog costs. The players are requested to minimise the costs over the whole supply chain while only having local information about the orders they receive and the costs they produce.
+
+Another example is the Salt Seller business game. Here, players have to set prices for a commodity in a competitive market and experience in each round the effects on market share and profit resulting from their decisions \cite{saltseller}. The Salt Seller simulator aims to convey an understanding for the general dynamics of stable markets \cite[p.90ff.]{sterman}.
+
+The goal of this thesis is to provide an architecture with which any round-based business game can be developed easily and played by multiple users. The amount of coding in a computer simulation to realise just the market models of such games is quite manageable. They can be translated into a few input and output variables together with some state-transition-functions, which define how to calculate the outputs from the current inputs and the game history.
+
+The main effort to allow gameplaying for multiple users in a distributed Internet-based environment with Web-Browsers as front-ends lies elsewhere. If developed individually, every game needs to specify its own mechanisms in order to deal with multiplayer synchronization, data base handling and game visualization, which results in a huge overhead. Simulation development becomes unattractive and expensive and it needs computer science know-how which is not always available in the educational background where such games are conceived and played.
+
+This thesis provides the design and implementation of a gaming engine (BGE) which automates the redundant programming parts related to browser-based multiplayer gameplay, including the visualization and storage of game results. It introduces a description mechanism (BGD) for round-based business games within an online editing environment so that game developers only have to implement their simulation or gaming model while the rest is taken care off by the architecture presented in this work.
+
+The outline of the thesis follows the chronology of the research. A first literature review in the next chapter surveys work on a simulation toolkit for round-based games that has been carried out in Japan. Next, a framework for general n-person round-based games is introduced in chapter 3, providing a clear definition of the class of round-based games. As a main contribution of this thesis, chapter 4 proposes an object-based architecture for round-based games, using a general purpose programming language, followed by a prototype implementation employing the most recent (web)technologies.

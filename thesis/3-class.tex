@@ -1,0 +1,196 @@
+
+
+\chapter{The game class supported by BGE}
+\label{cha:gameClass}
+This chapter describes the class of games that can be deployed on the business game architecture proposed in this thesis (BGE). It shows common features among these games and introduces a general framework for $n$-player round-based games.
+\section{Common features}
+\label{sec:common}
+All business games that are designed to run on BGE share the following characteristics of which some are based on the taxonomy of Greco et al. \cite{greco}.
+\begin{description}
+    \item[Browser-based.] The games run in a web browser and include texts and charts. They are played over a computer network (LAN, Internet).
+    \item[Single-/multiplayer.] The games are played by one or more players. Each game defines an interval assigning the minimal and maximal number of players. Most BGs will be designed as multiplayer games where at least two opponents compete against each other. Virtual opponents can be integrated with little effort. This permits a single player to play a multiplayer game against virtual opponents or to simulate the game having virtual opponents compete against each other.
+    \item[Round-based.] The games are round-based in contrast to e.g.~a flight simulator where interventions within the simulation are almost continuous. 
+    In each round (or period), the players take decisions based on the game history and independent from the other players' decision of this round. Every player must enter his or her decision for the next period within a certain time. 
+    The time frame to take a decision is synchronised between all parties which means the players act simultaneously. 
+    If one party does not respond within the time frame it is removed from the game. Thus all parties have the same time to reflect and take a decision, assuming a fast interconnection with low latency.
+    In contrast to games with alternating rounds like for example chess, where one player decides after the other, decisions in round-based business games are taken simultaneously.
+    \item[Indirect user interaction.] Interaction between the players is indirect, since they submit their decisions independently from each other. There are no means of direct interactions, e.g. an integrated communication channel. It is open to the game moderator, respectively the intention of the game session in question, whether communication between players is prohibited or not. There is no direct support for team-building eventhough teams can always be realised by allowing several players to play in front of one computer.
+    \item[Player evaluation.] 
+    The goals of the games are not absolute (as a fixed score on a scale) but relative to the opponents or to previous sessions of the game. In most BGs the players will be evaluated individually. A collective score evaluating the performance of all players together can be implemented as well. 
+    \item[Data collection.] The complete game data is stored for later analysis of the players' behaviour and strategies.
+\end{description}
+
+\section{{N}-player round-based games}
+\label{sec:round}
+This section introduces a general framework for $n$-player round-based games by utilizing
+inputs, outputs, fixed parameters, state transition functions, a score function, and a stopping condition.
+The framework is then applied to the round-based game \textit{stone-paper-scissors}.
+
+\subsection{A general framework}
+\label{subsec:framework}
+
+A $n$-player round-based game is defined through the 7-tuple $(In, P, Out, S_0, \mathcal{F}, score, sc)$. 
+The index $t \in  \mathbb{N} (1 \le t \le T)$ represents one round from round 1 to round $T$.
+A round is also called turn or period.
+
+\begin{description}
+    \item[Inputs.] $In = \begin{pmatrix}
+        in_1\\..\\in_l
+        \end{pmatrix}$
+    is a vector of input variables as e.g. $In = \begin{pmatrix}
+        price\\marketing\_exp
+        \end{pmatrix}$. An input variable is in turn a vector with an entry for every player $n$. The number of input variables $l$ is assumed to be constant in $t$, which means a game has the same inputs in every round. The domain $D(in_i), i \in \{1,\dots,l\}$ has to be chosen depending on the game, generally, $\mathbb{R}$ can be a good choice.
+    
+    In each round $t$, $n$ players or virtual opponents submit $l$ input values $in_{ij}^{(t)} \in D(in_i), i\in\{1,\dots,l\},$ $j\in\{1,\dots,n\},t\in\{1,\dots,T\}$ which results in the input matrix $In^{(t)}$ with
+    \begin{align}
+        In^{(t)} = \begin{pmatrix}
+        in_{11}^{(t)}&..&in_{1n}^{(t)}\\..&..&..\\in_{l1}^{(t)}&..&in_{ln}^{(t)}
+        \end{pmatrix} \in \begin{pmatrix}
+        D(in_1) \times \dots \times D(in_l)
+        \end{pmatrix}^n. 
+    \end{align}
+    One could say that $In^{(t)}$ is the instance of $n$ input variable vectors.
+    \item[Parameters.] $P$ is a set of fixed parameters (constants), e.g. a pre-defined number of rounds, a minimal/maximal number of players, a timeout to take a decision or an economic constant. $D(p)$ with $p \in P$ is the domain of a parameter.
+    \item[Outputs.] $Out = \begin{pmatrix}
+        out_1\\..\\out_k
+        \end{pmatrix}$
+    is a vector of output variables. As with inputs, the number of outputs $k$ is assumed to be constant in $t$. Output variables resemble input variables. They are a vector with length $n$ and their domain $D(out_i),i\in\{1,\dots,k\}$ is game-dependent.
+    
+    The outcome of a round or rather the game state in $t$ is described by the output matrix $Out^{(t)}$, which sums up the realisation of the output variables in $t$. It is 
+    \begin{align}
+        Out^{(t)} = \begin{pmatrix}
+        out_{11}^{(t)}&..&out_{1n}^{(t)}\\..&..&..\\out_{k1}^{(t)}&..&out_{kn}^{(t)}
+        \end{pmatrix} \in \begin{pmatrix}
+        D(out_1) \times \dots \times D(out_k)
+        \end{pmatrix}^n. 
+        \label{eq:output}
+    \end{align}
+    \item[Initial game state.] The initial game state $S_0$ defines the state of the game at $t \le 0$ before it has been started. It is fully described by the initial state of every output variable and thus 
+    \begin{align}
+        S_0 := Out^{(0)}.
+        \label{eq:s0}
+    \end{align}
+    \item[State transition functions.] $\mathcal{F}$ is a set of functions transforming the game state from round $t$ to $t+1$. Hence, these functions are used to calculate the game's outputs of a round $t$ from the parameters and the game history. It is $|\mathcal{F}|=k$ which means there exists exactly one transition function per output variable and  $f_i \in \mathcal{F}, i\in\{1,\dots,k\}$ is used to calculate the output variable $out_i$. Each $f_i$ is defined as
+    \begin{align} 
+        f_i &\colon D(out) \times D(in) \times D(P) \times playerIDs \to D(out_i),  \label{eq:transition2} 
+    \end{align} with $playerIDs := \{1,\dots,n\}$.
+    
+    A game state is an output in time $t$ so that the output matrix from equation \ref{eq:output} can be written as
+    \begin{align}
+        Out^{(t+1)} = \begin{pmatrix}
+        f_1(Out^{(t)}, In^{(t)}, P, 1)&..&f_1(Out^{(t)}, In^{(t)}, P, n)\\..&..&..\\ f_k(Out^{(t)}, In^{(t)}, P, 1)&..&f_k(Out^{(t)}, In^{(t)}, P, n)
+        \end{pmatrix} =: f(Out^{(t)}, In^{(t)}, P).
+        \label{eq:state}
+    \end{align}
+    
+    The game history can be accessed as
+     \begin{align} 
+        f(Out^{(t)}, In^{(t)}, P) = f(f(Out^{(t-1)}, In^{(t-1)}, P), In^{(t)}, P).  \label{eq:hist} 
+    \end{align}
+    
+    \item[Score function.] A player's result or score of a round is calculated with the help of the $score$ function. It is 
+    \begin{align} 
+        score \colon D(P) \times D(out) \times playerIDs \to \mathbb{R},
+        \label{eq:score}
+    \end{align} with $playerIDs$ as defined before.
+    
+    In each round the score function is applied for every player and the results are written to a variable $roundScore^{(t)}$ which is a vector of length $n$ just as an input or output variable. The result over all so-far played periods is defined as
+    \begin{align}
+        accumulatedScore^{(t)} := \sum\nolimits_{s=1}^t roundScore^{(s)}.
+        \label{eq:accumulated}
+    \end{align}It is possible to define  a collective score function with \begin{align}
+        collectiveScore \colon P \times Out^{(t)} \to \mathbb{R}
+        \label{eq:collectivescore}
+    \end{align} which assesses the performance of all players together for a period $t$.
+    \item[Stopping condition.] $sc$ is a stopping condition. If this condition is met, the game ends. A stopping condition can be e.g. a pre-defined number of rounds.
+\end{description}
+It is important to mention that in many games the players do not receive complete information about all game describing variables.
+Additionally, $P$, $\mathcal{F}$, $score$ and $sc$ can be generalised and defined dependent on $t$ as well, e.g. in the German card game \textit{Skat} $\mathcal{F}$ is defined differently when playing \textit{Null}.
+Furthermore, all tuple parts could also be made dependent on the number of players $n$.
+
+\subsection{Applying the framework}
+\label{subsec:apply}
+This subsection provides an easy example for the application of the framework by applying it to the the round-based game \textit{stone-paper-scissors}.
+
+\paragraph{Initialization.}
+
+Utilizing the framework introduced above, stone-paper-scissors can be described as following:
+
+\begin{itemize}
+\item $In=\begin{pmatrix}
+       choice
+        \end{pmatrix}$. In stone-paper-scissors the players solely have to take one decision in each round and decide between one of three options. Therefore, there is only \textbf{one input variable}. It is called $choice$ with $D(choice) = \{stone, paper, scissors\}$.
+\item $P = \{maxrounds, minplayers, maxplayers\}$. The rules of stone-paper- scissors are very simple and there are no game specific \textbf{parameters} as for example economic constants. However, every game needs to agree on the number of rounds to be played, the minimal and maximal number of players who can participate in the game as well as the maximal time to take a decision. Since stone-paper-scissors is a 2-player game consisting of three rounds, it is $minplayers = 2$, $maxplayers = 2$ and $maxrounds = 3$.
+\item $Out=\begin{pmatrix}
+       roundWinner
+        \end{pmatrix}$. The only output in stone-paper-scissors is the information about winner and loser of the round or if the round ended in a draw. That being the case, there is only \textbf{one output variable} which is called \textit{roundWinner}. It has the domain $D(roundWinner) = \{-1,0,1\}$ where -1 stands for defeat, 0 for tie and 1 for victory. The initial state $S_0$ of the game is $Out^{(0)} = \begin{pmatrix}
+       0&0
+        \end{pmatrix}$.
+\item $\mathcal{F}=\{calculateRoundWinner\}$. One output to calculate results in \textbf{one state transition function}. This function calculates the output variable $roundWinner$ for a player $i$ and a round $t$ from the input choices of both players as shown in algorithm \ref{alg:roundWinner}. With $calculateRoundWinner \colon I^{(t)} \times \{1,2\} \to \{-1,0,1\}$, the definition of the function is quite simple; it only needs the current inputs in order to determine the new game state. In more sophisticated games the transition functions are more complex accessing the complete game history and $P$ as shown in equation \ref{eq:transition2}.
+\item The \textbf{score function} of stone-paper-scissors is also very simple. The score is 1,-1 or 0 for victory, defeat or tie and thus it just returns the result of the $roundWinner$ output variable of the current round. In other games the score function e.g. combines several outputs and weighs them.
+\item The \textbf{stopping condition} checks whether the current round $t$ is greater than the pre-defined number of rounds $maxrounds$. Consequently it is $sc: t > 3$.
+\end{itemize}
+\begin{algorithm}[h]
+	\caption{$\mathtt{}$}
+	\label{alg:roundWinner}
+	\begin{algorithmic}[1]
+	    \Function{calculateRoundWinner}{playerID} 
+	    \State $choice1 \gets \text{get \textit{choice} of player one for round \textit{t}} $ \Comment{stone=0, scissors=1, paper=2}
+	    \State $choice2 \gets \text{get \textit{choice} of player two for round \textit{t}} $
+	    \If{$playerID=1$} 
+	        \State $diff \gets choice1 - choice2$ 
+	    \ElsIf{$playerID=2$} 
+	        \State $diff \gets choice2 - choice1$
+	    \EndIf
+	    \If{$diff = -1 \text{ or } diff = 2$}
+	        \State $result \gets 1$
+	    \ElsIf{$diff = 0$}
+	        \State $result \gets 0$
+	    \Else
+	        \State $result \gets -1$
+	    \EndIf
+	    \State \textbf{return} $result$
+	    \EndFunction
+	\end{algorithmic}
+\end{algorithm}
+
+\paragraph{First round.} 
+
+Assuming player one chooses \textit{stone} and player two chooses \textit{paper}. This results in the input matrix
+$In^{(1)} = \begin{pmatrix}
+stone&paper
+\end{pmatrix} = \begin{pmatrix}
+0&2
+\end{pmatrix}$.
+
+Applying the state transition function $calculateRoundWinner$ for both players in order to transfer the game state to $t=1$ results in the output matrix $Out^{(1)}=\begin{pmatrix}
+-1&1
+\end{pmatrix}$. The score function returns the same values which leads to $roundScore^{(1)}=\begin{pmatrix}
+-1\\1
+\end{pmatrix}$ and \newline $accumulatedScore^{(1)}=\begin{pmatrix}
+-1\\1
+\end{pmatrix}$.
+
+\paragraph{Second round.} It is assumed that $In^{(2)}=\begin{pmatrix}
+scissors&scissors
+\end{pmatrix} = \begin{pmatrix}
+1&1
+\end{pmatrix}$, which means the round ended in a draw. For $t=2$ it is $Out^{(2)}=\begin{pmatrix}
+0&0
+\end{pmatrix}$ which results in  $roundScore^{(2)}=\begin{pmatrix}
+0\\0
+\end{pmatrix}$ and $accumulatedScore^{(2)}=\begin{pmatrix}
+-1\\1
+\end{pmatrix}$.
+
+\paragraph{Last round.} With $In^{(3)}=\begin{pmatrix}
+paper&scissors
+\end{pmatrix} = \begin{pmatrix}
+2&1
+\end{pmatrix}$ it is $Out^{(3)}=\begin{pmatrix}
+-1&1
+\end{pmatrix}$, \newline $roundScore^{(3)}=\begin{pmatrix}
+-1\\1
+\end{pmatrix}$ and $accumulatedScore^{(3)}=\begin{pmatrix}
+-2\\2
+\end{pmatrix}$. The game ends because the stopping condition is met. Player two wins the game with a total score of $2 > -2$.

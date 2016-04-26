@@ -1,0 +1,35 @@
+doctype html
+html(lang='en')
+  head
+    meta(charset='UTF-8')
+    meta(name='viewport', content='width=device-width')
+    meta(name="_csrf", content="#{token}")
+    link(rel='stylesheet', href='../css/built-editor.css')
+    link(rel='stylesheet', href='../css/style.css')
+    link(rel='stylesheet', href='../css/foundation.min.css')
+  body
+    // Title and subtitle
+    .row
+      .twelve.columns
+        .twelve.columns
+          h3.subheader
+            strong Edit game
+        #textfields.twelve.columns
+          input#gameName.two.columns(placeholder="Game name.. can't be changed afterwards")
+          input#gameAuthor.two.columns(placeholder='Game author...')
+          input#gameDescription.seven.columns(placeholder='Game description...')
+          input#save.one.column(type='button', value='Save')
+    // Main content
+    .row
+      .twelve.columns
+        pre#editor(spellcheck='false', style='height: 550px').
+        .twelve.columns
+          #info(<='', div='')
+        script(src='../3rdParty/esprima.js')
+        script(src='../3rdParty/escodegen.browser.js')
+        script(src='../3rdParty/built-editor.min.js')
+        script(src='../3rdParty/customeditor.js')
+        script(src='../validate.js')
+        script(src='../modules.js')
+        script(src='http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js')
+

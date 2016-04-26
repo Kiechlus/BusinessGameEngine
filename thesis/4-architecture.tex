@@ -1,0 +1,344 @@
+\chapter{Architecture design}
+\label{cha:architecture}
+
+This chapter describes the requirements for a business-games architecture and shows how a Business Game Description (BGD) mechanism and a Business Game Engine (BGE) can be designed in order to meet these requirements.
+
+\section{Software requirements}
+\label{sec:requirements}
+
+\subsection{Description mechanism}
+\label{subsec:req:description}
+
+In order to enable game writers to write their own round-based business games a programming language or game-description mechanism is needed which covers all aspects of round-based games as described in section \ref{sec:round}:
+\begin{itemize}
+\item The game writer must be able to define \textbf{input variables} as well as the input domain. The latter is needed for the validation of user input. Furthermore, he must be able to decide if the players are asked for a variable or predefined input (empty text field vs. checkbox).
+\item \textbf{Parameters} must be supported, including the definition of the domain, so that parameter changes can be validated. This is useful if other users than the original game writer have the privilege to change parameter values or to prevent careless mistakes.
+\item The description mechanism must support the declaration of \textbf{output variables} as well as the definition of the output domain and the initial state of the variable. Output variables must be linked with a \textbf{state transition function} in order to specify how the output is calculated. This function must be able to access the set of parameters and the game history as described in equation \ref{eq:transition2}. The outputs of previous rounds and of earlier declared output variables of this round should also be accessible in order to facilitate the implementation of the state transition functions. For the rest of this thesis, the term game history will be used in the broader sense including outputs. 
+\item Furthermore it must be possible to define a \textbf{score function} and a \textbf{stopping condition}. The latter can be defined for example in form of a parameter indicating the maximal number of rounds.
+\end{itemize}
+
+Apart from supporting the pure description features of round-based games, the description mechanism should
+\begin{itemize}
+\item define an interface for virtual opponents which enables simulations or game sessions with real players against virtual opponents, 
+\item provide a mechanism to define questionnaires between game rounds and/or at the beginning or end of the game,
+\item provide means to define how round results, game history and results of the entire game are presented to the players.
+\end{itemize}
+
+\subsection{Game development environment}
+\label{subsec:req:develop}
+
+If the description mechanism from the last subsection is available, the game writer needs a system or process which allows to
+\begin{itemize}
+\item write games and transmit the game description to the architecture,
+\item validate its syntax and semantics and receive feedback on possible mistakes,
+\item save and register the game in the architecture if the syntax and semantics check has passed.
+\end{itemize}
+
+\subsection{Simulation environment}
+\label{subsec:req:simulation}
+
+After having registered a new game it should be made available for simulation. Here, in contrast to a real game session, the inputs for each round and for each player are provided by the simulation environment. Simulation allows the game developer to test the state transition functions and the correctness of the entire game by verifying if a given input results in the expected output. It can further be used to adjust game parameters. The simulation environment should provide means for debugging in order to locate and understand errors which might occur during game execution.
+
+\subsection{Playing environment}
+\label{subsec:req:play}
+
+A game which has been successfully registered and proven to work correctly should be made available as online multiplayer game. The playing environment should meet two main requirements:
+
+\begin{description}
+\item[Entrance hall.] This describes a mechanism to join players together who want to play the same game. Players should be informed about their waiting status if the minimal number of players for the game is not yet reached. The game is started after the minimal number of players is reached.
+
+Alternatively the automatic starting behaviour could be changed for a manual start triggered by the game creator. The game creator is the first person who joined the game. He might also be given the possibility to add virtual opponents to the game.
+\item[Game engine.] \textit{Game engine} describes a system which enables real time game play of multiple users. It must collect the user input and distribute it to an instance, which
+\begin{itemize}
+\item calculates the outputs by invoking the state transition functions,
+\item distributes and shows the results to the players according to the game description,
+\item handles timeout if a player does not provide his input decision within a predefined time frame,
+\item saves all game states, parameters, etc. to the database for later analysis.
+\end{itemize}
+The game engine might also provide a mechanism to render questionnaires and display them to the players if included in the game description.
+\end{description}
+
+\subsection{Analysis environment}
+\label{subsec:req:analysis}
+
+The analysis environment should a) provide a mechanism to retrieve the collected data of all game sessions of a specific game from the database and deliver it to the user for example as csv-export. It might further b) include various possibilities to filter for specific parts of the game data before exporting it or it might c) provide an online view of selected game data.
+
+\section{Business Game Description (BGD)}
+\label{sec:bgd}
+
+As seen in the requirements of section \ref{subsec:req:description}, a mechanism is needed with which game developers can write their own round-based business games. This feature is called Business Game Description (BGD) and there are the following two major ways to approach it:
+
+\begin{description}
+\item[New programming language.] One possibility would be to invent a new programming language with its own syntax and keywords which meets all requirements from section \ref{subsec:req:description}. The set of keywords could be kept small compared to a conventional programming language and a language exclusively built in order to describe round-based games would be compact and easy to learn. After having defined this language it would be necessary to build either a compiler or a converter to another programming language. Writing a complete compiler for different architectures seems rather unfeasible in terms of resources. Writing a converter would be the second option, which is for example followed in the work of Tsuda et al.~on BMDL \cite{bmdl1} as introduced in section \ref{subsec:bmdl}. Yet, even a converter still needs a parser which complicates the processing of the language \cite{japanisch} and which is error-prone and time-consuming to build. Moreover, libraries or existing projects which could facilitate the implementation of the system do not exist for a newly created language.
+\item[General purpose language.] In the second approach the game itself is written in an object-oriented general purpose programming language. For game developers completely new to programming this might pose an obstacle, although it should be quite easy to adopt existing examples in order to create a new game. The use of an existing programming language maintains a high flexibility since almost everything can be expressed and since a large variety of libraries and projects such as syntax highlighting, syntax checking, code reformatting etc. exist which can be used to facilitate the editing process (sections \ref{subsub:verification} and \ref{sub:module:editor}). It is no longer necessary to write a resource-intensive parser which is the main reason for choosing this second approach in order to create the Business Game Description mechanism.
+\end{description}
+
+\subsection{BGD object model}
+\label{subsec:bgd:model}
+
+Figure \ref{fig:uml} shows the objects which are used in the Business Game Description mechanism. The Game object is the central element of BGD. It holds all methods that are needed to describe a round-based business game. At game development time, the game writer calls these methods in his game code in order to define and retrieve parameters, inputs, outputs and so on as explained in the following subsections. 
+
+Doing so, the game writer does not need to instantiate the Game object in his code. He just calls the methods as if the Game object had been instantiated before. When some players want to play his game and start it, the game engine creates a new instance of Game. It then loads his code from the database and invokes it which will populate this very instance of Game with the parameters, inputs, outputs, state transition functions etc. which are needed to play his game.
+
+\begin{figure}
+	\centering
+	\includegraphics[scale=0.565]{figures/gameUml.png}
+	\caption{UML diagram of the Business Game Description (BGD) model with chapter references.}
+	\label{fig:uml}
+\end{figure}
+
+\subsubsection{Parameter object}
+\label{subsub:parameters}
+
+A parameter is a constant. The parameter object therefore holds two main attributes, which are the parameter name and the parameter value. The first is of type string, the latter can be string or numeric, depending on the game. In most cases, parameter values will be numeric.
+
+As stated in the requirements of section \ref{subsec:req:description} it should also be possible to specify the parameter domain. This is done using a so-called validation expression. A validation expression is an array of one or several expressions represented by strings. Every time the game code is saved to the database, e.g. after it got created or after some changes took place, the parameter value will be matched against each of these expressions, resulting in an error if one of them fails. For example, if a game developer wants to express that the domain of his parameter $p1$ is defined as $p1 \in \{0,1\}$ the validation expression would be $\begin{pmatrix}
+"\ge0"\\"\le1"\\"\%1==0"
+\end{pmatrix}$, with \% being the modulo operator. If someone would try to set $p1 = 1.5$ the validation would fail at the third expression because $1.5\%1=0.5\neq0$. The concept of validation expressions will also be used to specify the domain of input and output variables as shown in the next subsection.
+
+At game development time, in order to define a new parameter, the game developer calls the \textit{game.addParameter()} method, specifying name, value and the validationExpression, the latter being an optional parameter. At game play, when his code gets invoked, this will implicitly result in the instantiation of a new parameter object by the game engine which will be added to the parameter collection of the game object. 
+
+As shown in equation \ref{eq:transition2} and \ref{eq:score} the state transition functions as well as the score function need access to the set of parameters. In the game code, this is done with the \textit{game.getPara-} \newline \textit{meter()} method. By specifying the name of the requested parameter this method returns the parameter value.
+
+\subsubsection{Variable object}
+\label{subsub:variables}
+
+As seen in section \ref{sec:round}, input and output variables play a fundamental role in round-based business games. In BGD, both are defined by passing a \textit{Variable} object to one of the \textit{game.add...Variable()} methods. The exact definition of these methods and the parameters they take will be explained in the following paragraphs. 
+
+When the game is played, the game engine creates a new Game object and executes the game code. The Variable object, which was passed to the function, will be added to the Game object's array of input or output variables, depending on whether it was an instance of InputVariable or OutputVariable respectively. 
+
+In order to retrieve the value of a variable for a given player and a given round, the game developer can use the \textit{game.get()} function. He will need this for example in the state transition functions in order to fetch values of input and output variables from the game history.
+
+If a state transition function $calcOut2$, which calculates output $out2$, retrieves $out1$ of this round, then $out1$ must be added before $out2$, since the output variables are being calculated in the order in which they are added in the game code.
+
+Finally, each Variable object must specify the \textit{name} attribute and the name of the variables must be unique within one game, since it will be used for example in the \textit{game.get()} function as an identifier. The Variable object may further define the $initialValue$ and $calculationFunction$ attribute as shown below.
+
+\paragraph{Input variable.} An input can be defined calling the \textit{game.addInputVariable()} method. This method takes two parameters of which the first one is obligatory and of type \textit{InputVariable}. Thus, in order to create a new input, the game author first has to instantiate a InputVariable object in his game code. 
+
+As seen in the requirements of section \ref{subsec:req:description} two types of inputs exist, such of variable and such of predefined type. Both must specify the \textit{default} attribute. If a player leaves the game before it has ended or if he exceeds the maximal time to take a decision he will be expelled from the game and the default value will be his input for the remaining rounds. 
+
+A variable input type is represented by the \textit{TextField} object. It must specify the \textit{type} attribute for input validation which can either take the value "number" or the value "string". It may additionally specify a validation expression in order to set out the exact subdomain of textual or numeric input.  
+
+The predefined input type can either be of style \textit{checkbox} or \textit{scrolldown}. Both must define an array of values which represent the different options between which the player can choose. Of course, the default value must be one of these options.
+
+An input object may also define the \textit{calculationFunction} attribute which must be of type \textit{Function} and which represents in the context of input variables the interface to virtual opponents. It is defined in the same manner as state transition functions from equation \ref{eq:transition2}. Instead of calculating an output, this function defines how an input can be automatically generated. It is required if the game should be available for simulation or if virtual opponents should be added to games with real players. This is why it is strongly recommended to implement such a function. In most cases it will be enough to return for example a random number, but it also lays the foundation for sophisticated artificial agents since the game author can access the complete game history and use any kind of programming he likes. The concept of \textit{calculationFunctions} will be explained in more detail in the next paragraph about output variables.
+
+An input variable may further define an initial value. This is mathematically not needed, as seen in equation \ref{eq:s0}, which shows that $S_0$ is fully described by the initial states of the output variables. Nevertheless it has proven practical for some game implementations.
+
+\paragraph{Chart.} As presented at the beginning of the last paragraph, the \textit{game.addInputVariable()} method takes two parameters of which the second is an optional Chart object. If it is specified, the players will see a chart in each round which shows the values of this input variable of every player of the previous rounds. The Chart object describes how this chart should look like. Chart objects are not restricted to input variables but are used as a general concept to visualise the outcome of a variable, using the attributes $caption$, $type$, $unit$, $xInit$ and $xIncrement$. So far, the types \textit{pieChart}, \textit{columnChart} and \textit{lineChart} are supported. Per default, columnChart and lineChart show a value (e.g. price) over all previous rounds while pieChart visualises a proportion (e.g. market share) of the previous round. The caption attribute allows to define a title for the chart. Unit defines the unit of measurement (e.g. \%, euros, etc.) of the variable. The xInit and xIncrement attributes are used in columnChart and lineChart to define the entries of the x-Axis.
+
+\paragraph{Output variable.} With \textit{game.addPlayerVariable()} and \textit{game.addRoundVariable()} two \newline  
+methods exist in order to introduce a new output variable in the game code. This may seem strange since the framework for round-based BGs from section \ref{sec:round} knows only one type of output. The difference between both can be explained assuming a business game which implements an output variable \textit{market demand} which changes in each period and which is calculated as a random number. In a given period, the market demand is supposed to be the same for each player. Mathematically, it is not necessary to differentiate such an output from one that is different for every player. In the output matrix from equation \ref{eq:output} this market demand variable would just result in one row with identical numbers for every player. However, in terms of programming it makes sense to distinguish between a \textit{Player(output)Variable} and a \textit{Round(output)Variable} since the latter needs to be calculated and stored only once per round while the first needs to be calculated and stored per round and per player. 
+
+Similar as the value of an input variable, the value of an output variable can be retrieved from the game history with the \textit{game.get()} function. In case of a round-specific OutputVariable the \textit{playerID} parameter is optional and is ignored if specified. In case of a player-specific OutputVariable the \textit{playerID} is obligatory, resulting in an error if not specified. The \textit{game.get()} function takes also the \textit{roundIndex} as a mandatory parameter, specifying the round index for which the output value should be fetched. Supposing a BGD implementation where the first round has $roundIndex = 0$ for the rest of this chapter, any access to a negative roundIndex will return the initial state of the variable which is part of the initial game state $S_0$.
+
+Both output-adding methods introduced at the beginning of this paragraph take two parameters: the first being obligatory and of type OutputVariable, the second being an optional Chart object. As with the inputs, the Chart object is used to visualise outputs. In summary, the OutputVariable object resembles InputVariable. It must define the name and the calculationFunction attribute and it should define an initial value and a validation expression.
+
+The \textit{calculationFunction} attribute links the OutputVariable object to a function. This function represents the algorithm which defines how the output is calculated. It is thus the programmatic counterpart to a state transition function as introduced in equation \ref{eq:transition2}. If the function is linked with a player-specific OutputVariable (or an InputVariable as described in the last paragraph) it must be defined with \textit{playerID} as parameter. If it is linked with a round-specific OutputVariable it must be defined without parameters. It must always return a value which is within the domain of the output (or input) variable which it is supposed to calculate. When the game is played, the game engine calls this function every round in order to calculate the output (or input) value. For a player-specific OutputVariable or an InputVariable it will be called for each player with the playerID of the current player passed as parameter. For a round-specific OutputVariable it will be called once per round without parameters. 
+
+Defining an attribute of type \textit{Function} may seem strange. This is why it should be noted here that the programming language used to implement BGD should for the sake of efficiency support first-class functions and closures. The first means that a function is nothing else than an object which can be for example stored in a variable or passed as parameter to another function. Like this the calculationFunction attribute of a Variable object can be of type Function. A closure means that a function has access to the variables from the context from which it was called. The implementation described in chapter \ref{cha:implementation} provides further details on this topic.
+
+As mentioned before, an OutputVariable object should have the initialValue and \newline 
+\mbox{validationExpression} attribute which means it is strongly recommended to include them in every game implementation. A missing initialValue means that the game state $S_0$ is not fully described. Any access to the missing part will result in an error. The validationExpression in output variables is extremely useful in order to validate the correctness of the implementation of the state transition functions. If an error in some function or in the interaction between several functions produces an output value which is not within the correct domain, the error from a failing validation expression can accelerate and facilitate the debugging process.
+
+\subsubsection{Score function}
+\label{subsub:score}
+
+The game developer can register a score function by passing it as a parameter to the \newline \textit{game.addScore()} method. The score function should look like a \textit{calculationFunction} of a PlayerVariable as described in the last subsection and follow the definition from equation \ref{eq:score}. Consequently it is a function which takes the playerID as parameter and which returns a score value $\in \mathbb{R}$. Every game should implement a score function, since otherwise it won't have a winner and the players cannot get evaluated individually.
+
+Internally, the concept of the score function uses the same mechanism as variables. The \newline \textit{game.addScore()} call will result in the automatic creation of two OutputVariable objects, one being player-specific and one being round-specific. Both are added at the end of the Game object's array of output variables. Since they are added at the end, when playing the game, all other outputs of all previous rounds including the current one have been calculated before and can be accessed in the \textit{calculationFunction} of the two new objects.
+
+The first of these new OutputVariables is called \textit{roundScore} and its \textit{calculationFunction} is the player-specific score function specified by the game developer. The second is called \textit{accumulatedScore}. Its calculationFunction is automatically generated and defined as introduced in equation \ref{eq:accumulated}. If an optional Chart object was passed as second parameter to the \textit{game.addScore()} method, it will be used to visualise the \textit{accumulatedScore} variable which shows in each round the total score of each player so far reached.
+
+The \textit{game.addCollectiveScore()} method is the second score-related functionality of the Game object. Game developers can use it to register a \textit{collective score} function which evaluates the performance of the players altogether in one period as defined in equation \ref{eq:collectivescore}. For example in the \textit{Beergame}, which was described by John Sterman \cite{beergame}, the players are asked to minimise the collective costs over the whole supply chain (collective score) while only having local information about their own costs (individual score). The concept of collective scores can be used to model such a behaviour. Internally it works in the same way as the individual score, adding two OutputVariables \textit{collectiveRoundScore} and \textit{accumulatedCollectiveScore}.
+
+\subsubsection{Questionnaire object}
+\label{subsub:quest}
+
+Questionnaires as formulated in the requirements of section \ref{subsec:req:description} can be included to a game by calling the \textit{game.addQuestionnaire()} method in the game code. It takes as first parameter the name of the questionnaire, as second parameter a Questionnaire object and as last parameter a position array.
+
+A Questionnaire object has a name and a position which are implicitly set by the \newline
+$addQuestionnaire()$ method. It further holds an array of \textit{Questions}, of which each defines a question name, a question text and an answer. The answer attribute can be either of type string or of type array of strings. If it is of type string it can take the values "string" or "number", indicating a question with variable input which may be textual or numeric. An answer of type array of strings represents a question with predefined answers; each element in the array becomes one of the options between which the player can choose in order to answer the question.
+
+The last parameter, the position array, must be an array of numbers $\in \mathbb{N} \bigcup \{0\}$ defining the point in time where the questionnaire will be shown. This means that the same questionnaire can occur once or several times at different rounds of the game. Each entry in the array stands for a round before which the questionnaire will turn up. A number bigger than the maximal number of rounds of the game means that the questionnaire will appear at the end while 0 indicates that it will appear before the first round of the game.
+
+\subsubsection{Utility and Mathematics object}
+\label{subsub:util}
+
+Both utility and mathematics objects provide access to functions which are supposed to facilitate the game development and are not directly supported by the general purpose programming language in which BGD is implemented. So far, one utility and four mathematical functions are exemplarily specified. Future game implementations may bring up the need for further functionality.
+
+\paragraph{Utility.} With \textit{game.util.getWeekNumber()} the game developer can get the calendar week of a date by passing the corresponding date object to this function. This is useful for game implementations where one period consists of one calendar week and their numbering e.g. in a chart should start with the current week.
+
+\paragraph{Mathematics.} There are two mathematical functions \textit{random()} and \textit{randomInt()} which are intended to help with random numbers since those are often needed for implementations of artificial agents. Both take a numeric minimum $min$ and maximum $max$ value as parameter and return a random value $rv$ with $rv \in [min, max)$, where $rv \in \mathbb{R}$ for the first function and $rv \in \mathbb{Z}$ for the second function respectively.
+
+The mathematics functions \textit{proportionalDistribution()} and \textit{inverseDistribution()} are inspired from the BMDL \textit{prop} and \textit{pinv} commands \cite{bmdl1} and are useful for many game implementations. Assuming a game where two players have to decide upon a price $p_1$ and $p_2$ in each period for a product they want to sell. If the market volume is 100 tons ($distrVal$) and $p_1=75$\euro \space ($distrByVal_1$) and $p_2=25$\euro \space ($distrByVal_2$) a proportional distribution of this market would mean that player one can sell 75 tons at 75\euro \space and player two can sell 25 tons at 25\euro. However, the more realistic distribution in this example would be a (proportional) inverse distribution, where player one with the high price can only sell 25 tons and player two with the low price can sell 75 tons.
+
+For player $i$ with $i\in\{1,\dots, n\}$ the proportional distribution is
+\begin{align}
+    propDistr_i=\frac{distrVal}{\sum_{i=1}^n distrByVal_i}*distrByVal_i,
+\end{align}
+while the inverse distribution is defined as
+\begin{align}
+    invDistr_i=\frac{distrVal}{\sum_{i=1}^n propDistr_i^{-1}}*propDistr_i^{-1}.
+\end{align}
+
+This reflects the three obligatory parameters of both distribution functions. The first parameter is the \textit{playerID}. The second parameter is called \textit{distributionValue}. It may either be a number or the name of a round-specific output variable. In the example above the distributionValue was 100 (tons). Supposed that the market volume is stored in the round-specific output variable with the name of $marketVol$, this name can just be passed as second parameter to one of the distribution functions. The game engine will then retrieve the value of $marketVol$ for the current round to calculate and set it as distributionValue. Passing the name of a player-specific output variable or of an input variable (which is also player-specific) will result in an error.
+
+The third parameter is called \textit{distributeByVariableName}. This must be the name of a player-specific output variable or the name of an input variable by which the distributionValue should be proportionally or inversely distributed, as e.g. $price$ in the example above. 
+
+The fourth parameter \textit{optionalRoundIndex} is optional. It is an array of (two) numeric entries $\in \mathbb{Z}$. OptionalRoundIndex[0] $\le t,t\in\{1,\dots, T\}$ specifies the round index for the distributionValue, if it refers to a variable. Using the example above it could be e.g.~expressed to always use the market volume of the previous round instead of the current round as distribution value by setting optionalRoundIndex[0] = currentroundIndex-1. \mbox{OptionalRoundIndex[1]} $\le t$
+is used as round index for the distributeByVariable. If one or both values are not specified or if the whole parameter is missing, the current round will be used for calculation.
+
+\paragraph{Others.} Last but not least the two functions \textit{game.getCurrentRound()} and \newline \textit{game.getNumberOfPlayers()} should be mentioned for their importance, even though they do not belong to the Mathematics or Utility objects but directly to the Game object. The first returns the index of the current round the game is in at the moment, where the round index for the first round starts at zero. This feature is needed in virtually every state transition function in order to retrieve an in/output of the current round, the previous round, and so on. The second function returns the number of players $playerCount$ that are actually playing the game (at runtime). This is also an important functionality in many implementations since the developer at development time does not know yet how many players are going to play but only provides the minimal and maximal number of players. It can be used to retrieve variable values from the game history for \textit{all} players, using a loop from 0 to $playerCount-1$ and assuming a BGD implementation where $playerIDs =\{ 0,1,\dots, n-1\}$. It is used for example in the collectiveScore function of the Beergame where the costs over all players need to be summed up. 
+
+\subsection{BGD development}
+\label{subsec:bgd:develop}
+
+The requirements of section \ref{subsec:req:develop} specify a development mechanism which should allow developers to write, verify and transmit their game code and to register it in the system. Two major approaches to realise this behaviour can be distinguished:
+
+\begin{description}
+\item[Manual verification.] The game developer writes his BGD-code in a text editor of his choice and transmits it via email or via an upload mechanism to a central human control instance. This instance performs a manual or semi-automatic check for malicious code and for mistakes. Syntax errors or minor semantic errors can be corrected by the control instance. If the code then works correctly it can be registered in the architecture. If it contains more severe errors the game developer is provided with feedback and asked to review his code.
+
+Since BGD uses a general purpose programming language for game implementation, security concerns must be taken into account, because executing untrusted game code could harm the system. A manual code check would minimise this risk, at least if carried out with proper care. On the other hand it is a rather inflexible, time consuming and expensive solution, because it needs an experienced reviewer who is constantly occupied by game verification. It is unattractive for the game developer as well who wants to have immediate feedback on his implementation and does not want to wait for the reviewing-process.
+
+\item[Automatic verification.] Automatic verification means the installation of a system which automatises all steps previously undertaken by a manual reviewer. This implies that the game developer can upload his code as a file or write it within the system and have it then automatically checked for syntax and semantic errors as well as for malicious code. If the code is free of such errors and can be trusted, it is saved and registered in the system, otherwise the developer is provided with feedback. This approach is preferred since it makes the entire system more attractive and thus more likely to be used for active game development of round-based business games.
+\end{description}
+
+\subsubsection{Automatic game verification}
+\label{subsub:verification}
+
+The automatic verification system of the BGD development environment must provide feedback on possible errors. It can be differentiated whether the error is related to the syntax or to the semantics of the game code.
+
+\paragraph{Syntax.} The syntax of BGD is defined by the programming language that is used for its implementation. A typical syntax error would be for example a missing bracket. Open source parsers exist for all major programming languages providing feedback if the parsing was successful or if and where problems were detected. All further checks beyond the syntax of the code should only take place after the syntax check has succeeded.
+
+\paragraph{Semantics.} A semantically correct game implementation provides all the mechanisms and objects that are needed to describe a round-based business game as seen in section \ref{subsec:framework} and \ref{subsec:bgd:model}. A semantic test can for example check if all necessary state transition functions are specified but it cannot prove the correctness of their implementation. This can be done only at runtime, for example in a simulation.
+
+With \textit{error}, \textit{warning} and \textit{success} three different alert levels can be distinguished. An error signifies a missing or incorrect implementation of a feature that would always result in failure at runtime. If a semantic error is detected, feedback should be provided and the code should not be tested further or registered in the system. Checks should ensure that
+
+\begin{itemize}
+\item all default parameters ($maxrounds$, $minplayers$, $maxplayers$, $timeout$) are specified,
+\item all parameter values match against their validation expressions, if provided,
+\item each variable has a name and that this name is unique among all variables,
+\item at least one input variable is defined,
+\item each input variable defines a semantically correct InputType object, which means that all obligatory attributes are set and the default value matches the domain,
+\item each output variable specifies a calculation function, 
+\item each questionnaire has a unique name, a numeric position array and an array of valid Question objects with at least one entry.
+\end{itemize}
+
+Warning or success means that the game can be further tested or registered in the system. A warning signifies a missing feature that might result in failure at runtime. Feedback should be provided and it should be tested that
+\begin{itemize}
+\item each input variable provides a calculation function because this is for example needed for simulation,
+\item each output variable provides an initial value because otherwise the game might fail at runtime if the initial game state is accessed, 
+\item each output variable defines a validation expression in order to detect errors in state transition functions and facilitate their debugging, 
+\item the game provides a score function.
+\end{itemize}
+
+\subsubsection{Security considerations}
+\label{subsub:security}
+
+In a client-server architecture the central security-related question is whether the potentially harmful game code gets executed on the server or on the client.
+
+\paragraph{Server-side.} If untrusted code is executed on the server, strong security measures must be taken. The following list shows possible measures with their advantages and disadvantages. All measures can also be used in combination.
+\begin{itemize}
+\item The code can be searched with the help of regular expressions in order to forbid access to global variables or to critical functionality such as access to the file-system etc. This approach is quite weak and provides only little security since regular expressions are error-prone, need a lot of testing and it is very hard to cover every loophole the attacker might take.
+\item When the code or parts of it get executed, a new worker process can be started, executing the piece of code in question. A new process is automatically separated from the process(es) of the server, which means it cannot access the same space of memory. If possible, this process should be started with limited privileges. The ability to do so depends on the technology that is used on the server as well as the platform it runs on. 
+
+In general, this measure requires that the complete inter-process communication between the system and the worker process must be established over a pipe. This implies that all communication objects must be serializable, complicating the implementation of such a system. Depending on the technology used, functionality might exist which facilitates inter-process communication. 
+
+It furthermore results in the creation of many processes since each execution of for example a state transition function means running untrusted code which has to be secured in a new process. Depending on the number of games that currently run on the server and the number of variables and players of each game this measure produces a lot of overhead and can have a significant impact on the server's performance.
+\item In order to reduce this overhead one could try to start only one worker process responsible for every execution of untrusted code. In addition to the necessity of inter-process-communication this approach is very hard to synchronise.
+\end{itemize}
+
+\paragraph{Client-side.} In the case of BGD, speaking of a client means the browser of the player(s) since all games are supposed to be browser-based. Consequently, security concerns need not be considered when running untrusted code on the client-side since this is done everyday on the internet and taken care off by the browser's sandbox.
+
+\section{Business Game Engine (BGE)}
+\label{sec:bge}
+
+The term \textit{Business Game Engine} (BGE) is used for the architecture as a whole. Business Game Description (BGD) as well as all required environments from section \ref{sec:requirements} are thus part of BGE. 
+
+Architecturally, BGE is a client-server environment with a database. One of its modules is the \textit{startpage}, which is comparable to the index.html file or the home page of a website. It should contain a list with the names of all available business games on this instance of BGE and provides access to all environments, namely the development, simulation, playing and analysis environment. The development, simulation and playing environment are further discussed in the following sections.
+
+\subsection{Development environment}
+\label{subsec:bge:d&a}
+
+For game development, BGE features the automatic verification development mechanism from section \ref{subsec:bgd:develop}. It consists of the modules \textit{Online editor} and \textit{Feedback screen} and accesses the database. A full implementation provides at least the functionality \textit{create}, \textit{edit} and \textit{delete}.
+
+\begin{description}
+\item[Create.] Linked from the startpage the editor module is loaded. The game developer can input his BGD code here. The feedback screen module informs of possible syntax and semantic errors and might inform if parts of the code are considered to be malicious. If all tests have passed, the game code can be allowed to be written to the database, together with an unique game name, a password and optionally additional information about the developer, game content and so on. The password is used to grant access to the privileged operations edit and delete.
+\item[Edit.] Linked from the start page in combination with the choice of a specific game from the game list, the game code of this game is loaded into the editor module if the user is privileged to do so. He can then edit and save the game code under the same conditions as described in the \textit{create} functionality. Parameter changes for instance are performed in this way.
+
+In its easiest implementation, the edit functionality just updates the game code in the database. In order to log which version of a game was played in a specific game session, the current game code should be saved together with every game session. Other realisations might forbid editing an existing game which has already been played or implement a code history. The first implies creating a new game for every new version of a game with existing game data, which reduces flexibility. The latter is more expensive to implement since concurrent edits of different clients must by synchronised.
+\item[Delete.] This functionality deletes a game from the database if the correct password is provided.
+\end{description}
+
+The development environment might also implement a \textit{show code} functionality which shows the code in read-only mode without asking for a password.
+
+\subsection{Simulation and playing environment}
+\label{subsec:bge:simplay}
+
+Similar to the edit or delete functionality from above, the simulation and playing environment is linked from the startpage after the user has chosen one specific game he wants to simulate or play.
+
+The Game object introduced in the UML diagram in figure \ref{fig:uml} holds an array of Round and Player objects that were not discussed so far. This is the case, because they cannot be addressed by the game developer at development time but become important at runtime, when simulating or playing the game.
+
+\subsubsection{Player}
+\label{subsub:player}
+
+The Player object describes a player using a name, nickname and email address. This selection is only a proposition. In an BGE implementation where only registered users are allowed to play it might be enough to use the playerID since all other information is already available in the database. In an open BGE implementation other player-describing attributes might be added. 
+
+When a player $p1$ wants to play a game called $easyBG$, BGE creates a Player object $p1\_obj$ that describes him and checks among all currently existing Game objects for a game with the name of $easyBG$ that has the \textit{isOpen} attribute set to $true$. If such an object is found, the player joins it, which means $p1\_obj$ is added to the Game object's array of players. If such an object is not found, either because all games of this type have already been started ($isOpen=false$) or because no such game exists at the moment, a new Game object is instantiated. Its name is $easyBG\_obj$, it is open, $p1\_obj$ is the first object in its array of players and it is now waiting for other players to join.
+
+The functionality described above is part of the \textit{entrance hall} module of BGE. Depending on its implementation, the game is started after the minimum number of players is reached or after the game creator (the first player who joined the game) starts the game. In case of the latter, additional virtual opponents can be added to the game, resulting in the \textit{isBot} attribute of their Player objects to be set to \textit{true}. 
+
+In the easiest implementation of the Player object, as  already mentioned at the end of section \ref{subsub:util}, the playerIDs correspond to the indices of the Game object's player array. This means that $playerIDs = \{0,\dots, n-1\}$. Supposing that $p1\_obj.playerID = 1$ this means that $p1$ was the second player who joined the game and that $game.players[1]$ contains $p1\_obj$.
+
+If a game is simulated but not really played, a random number $rand$ of artificial agent Player objects is created, with $rand \in [minplayers, maxplayers] \in \mathbb{N}$ and the game is started immediately. 
+
+\subsubsection{Round}
+\label{subsub:round}
+
+Round objects become important after the game has been started. They are used to fully describe the round of a game. When a new round is started, a new Round object is created and added to the Game object's array of rounds. During and at the end of the round, input and output values are written to this Round object. The BGE module responsible for handling games that have been started is called \textit{game engine}.
+
+The content of a Round object, which means the majority of its attributes as well as their domain, is dependent on the game that is played. Let us assume \textit{easyBG} from the example above has the input \textit{price} and two outputs \textit{marketVolume} and \textit{profit}, the first being round-specific and the latter being player-specific. The domain of all three variables is supposed to be numeric. This will result in Round objects with the three game-dependent attributes \textit{price, marketVolume} and \textit{profit} of which the first and the last are of type array of numbers and the second is of type number. If \textit{easyBG} specifies a score function, two more attributes with the name  \textit{roundScore} and \textit{accumulatedScore} of type array of numbers will be added to its Round objects. 
+
+In other words, each player-specific input or output variable is translated into an attribute with the name of the variable and type array of string or array of number. The length of this array is the number of players that are currently playing the game. The realisation of the input or output variable for player $i$, after the input has been decided upon or the output has been calculated, is stored in this array at index $i$, with $i \in playerIDs = \{0,\dots, n-1\}$. A round-specific output variable is translated in an attribute of type string or number which is used to store the realisation of this output variable.
+
+If a BGE implementation uses $playerIDs \neq \{0,\dots, n-1\}$, an additional mapping function $mf$ with
+\begin{align}
+mf \colon playerIDs \to \{0,\dots, n-1\}
+\end{align}
+is needed, in order to retrieve a player-specific variable value or to access the corresponding Player object.
+
+The following example illustrates how Round objects are used in the game engine module. Assuming player $p1$ from the last section is playing \textit{easyBG}, the entrance hall module is implemented so that $playerIDs = \{0,\dots, n-1\}$ and the game is in the third round. $P1$ decides to set up a price of 50\euro \space per ton and the market volume of this period as well as his profit is calculated as 300 tons and 8000\euro. This results in $game.rounds[2].price[1]=50$, $game.rounds[2].marketVolume=300$ and $game.rounds[2].profit[1]=8000$. The command to retrieve \textit{p1's} profit of the previous round in the game code would be \newline $game.get('profit', game.getCurrentRound()-1, 1)$.
+
+\subsubsection{Game and simulation flow}
+\label{subsub:flow}
+
+This section summarises all necessary steps that must be taken by the entrance hall and game engine module in order to enable game play or simulation, using \textit{easyBG} as example. \newpage
+
+\paragraph{Entrance hall.} \begin{enumerate}
+\item First player $p0$ joins the game. Create $p0\_obj$ and set $name=p0$, $isBot=false$ and $abort=false$. The abort attribute is set true if a player leaves a game before finishing it or if he does not decide within the maximal decision time. Additional information such as nickname, email etc. can be asked for as well.
+\item Instantiate new Game object and store it in the variable $easyBG\_obj$. Set $ID$ to an unique value, $name=easyBG$, $isOpen=true$ and $currentRound=0$. Add $p0\_obj$ to the $easyBG\_obj.players$ array.
+\item Wait for other players and add their objects when they join.
+\item Start the game (the game engine module) when $playerCount \in [minplayers, \newline maxplayers].$ If this is only a simulation, skip the previous steps, instantiate a game object with a valid number of artificial agents and immediately start the game.
+\end{enumerate}
+
+\paragraph{Game engine.} 
+\begin{enumerate}
+\item Load the game code of \textit{easyBG} from the database and invoke it. For example, easyBG holds the round-specific output variable $marketVolume$. In the game code this corresponds with the line $game.addRoundVariable(marketVolume\_obj)$. Running this piece of code will add $marketVolume\_obj$ to $easyBG\_obj$'s array of output variables. Recalling the security considerations in section \ref{subsub:security} it is possible to execute the game code either on the server- or on the client-side. An implementation which chooses the first option should assure that $easyBG\_obj$ is renamed to $game$ for any game code execution. A client-side implementation should not bother since one client only plays one game at a time and $easyBG\_obj$ can be named as $game$ in the first place. In this option, however, it must be assured that the game code and the initial state of $easyBG\_obj$ at the end of the entrance hall module are transmitted to every client participating in the game.
+\item Set the initial values of all variables. As seen in section \ref{subsub:variables} output and also input variables may define an initial value which forms the initial game state $S_0$. 
+\item Start the first or the next round of the game creating a new Round object. Add this object to $easyBG\_obj$'s array of rounds.
+\item Present questionnaire(s) to the players if this is a real game and if questionnaire(s) exists which must be shown before this round.
+\item Wait for the input values of the players if this is a real game. If this is only a simulation, calculate the input values calling the $calculationFunction$ of each input variable.
+\item Calculate the results of this round by calling the $calculationFunction$ of each output variable after all inputs have been submitted. This includes the execution of the score function(s) as seen in section \ref{subsub:score}. Write these values to the Round object. In case of a client-side execution setting the server must first collect the inputs from each player and redistribute them to each client. 
+
+After the calculation on the client-side it might be considered that each client has to transmit the Round object back to the server for fraud detection since a player could manually alter a variable value in the Browser's Javascript console. If such a fraud is detected, which means if not all Round objects submitted are completely identical, the server might abandon the game or take other measures.
+
+Some games need incomplete information, which means the players have to be prevented in general from using the Javascript console in order to debug into the calculation process and check variable values. Client-side code can be rendered unreadable using code obfuscators\footnote{http://yuiblog.com/blog/2006/03/06/minification-v-obfuscation/ retrieved on 24 Jan. 2016}. A BGE implementation is a big project, even an experienced Javascript developer would need a long time to find the calculation process in such an obfuscated code. Additionally, techniques exist to completely disable the User's Javascript console\footnote{http://www.queness.com/post/16151/disable-javascript-console-in-browsers, retrieved on 24 Jan. 2016}.
+
+\item Present the results of this round to the players displaying for example a chart of all variables for which a Chart object was supplied.
+\item If this was the last round of the game: Present the final score to each player and save  $easyBG\_obj$ (now containing the complete game history) to the database. In case of a client-side execution each client must first transmit the final state of its Game object to the server and the server must save one of them.
+
+If this was not the last round of the game: Increment the $currentRound$ attribute of $easyBG\_obj$ and go back to step 3.
+\end{enumerate}
+
+

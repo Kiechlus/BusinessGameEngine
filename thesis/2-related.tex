@@ -1,0 +1,144 @@
+\chapter{Related work}
+\label{cha:related}
+
+After a short review of business games this chapter surveys the work on a framework for round-based games that has been carried out in Japan.
+
+\section{Business games}
+\label{sec:bg}
+
+This section provides a brief overview on business games reviewing history, purpose and ways of classification.
+
+\subsection{History and purpose}
+\label{subsec:history}
+
+Greco et al. \cite{greco} describe business games (BGs) as games within a business environment that can lead to one or both of the following results: the training of players in business skills (hard and/or soft skills) or the quantitative and/or qualitative evaluation of the players' performances.
+
+Triggered by the integration of developments in war games, operations research, computer technology and education theory, BGs arrived on the scene in the late 1950s for example with the development of the American Management Association (AMA) decision simulation game \cite{ricciardi}.
+In the following years, games such as the Beer Distribution Game \cite{beergame,jarmain,JForrester1961} or the Markstrat Simulation Game \cite{JLarreche1977} were released and remained popular until today \cite{stratx}.
+An exhaustive survey about the historical development of the field of business games is presented by Wolfe \cite{wolfe93}.
+
+Today the field of business games is influenced by current technology developments such as natural language processing and advanced graphics processing, new business models like learning on demand and online feedback mechanisms based on artificial intelligence \cite{summers}. 
+BGs also serve as experimental environment for training computer players, also referred to as artificial agents or virtual opponents, and for studying deviations of human players from rationality.
+Furthermore, BGs are used as incentives to make crowd based online work (crowdsourcing) more attractive and effective \cite{rokicki_competitive_2014}.
+They are implemented by global enterprises like Google, Microsoft, American Express, Caterpillar, etc.\ to train their employees and managers \cite{uskov_serious_2014}.
+
+Since their inception, the main purpose of BGs has been to teach. 
+Over the years BGs have become very popular in management education. 
+Nowadays, almost every MBA program requires students to play one or more management simulations, and BGs are even more commonly applied at the undergraduate level \cite{faria}. 
+In addition, role-playing in the business game context can improve soft-skills such as team work, leadership, and practicing concepts and skills used in strategic management, marketing, finance, and project management.
+
+\subsection{Taxonomy}
+\label{subsec:tax}
+
+Eilon's early taxonomy \cite{eilon} classifies BGs according to design characteristics (computer/ non-computer, total enterprise/functional, ...) and expected use (management training, selling purpose, research). 
+
+Other taxonomies focus on a specific aspect of a game, such as the web technologies used \cite{web} or the skills that are mediated (product development, project management, logistic skills, risk management) \cite{skill}.
+
+A complete taxonomy of BGs is presented by Greco et al. \cite{greco}. It combines and extends previous work \cite{tax1,tax2,tax3} in this field. 
+Greco et al. classify BGs along five dimensions: application environment; elements of the user interface; target groups, goals, and feedback; user relation and model.
+Each dimension is described by an enumeration of characteristics and sub-characteristics (see \cite{greco}).
+A game can be categorised by a subset of all possible characteristics. 
+
+%\section{Realisation of round-based BGs}
+%\label{sec:realisationround}
+
+%\subsection{Stand-alone applications}
+%\label{sec:standalone}
+
+\section{Stand-alone applications}
+\label{sec:standalone}
+
+An implementation of a business game is called stand-alone application if the game is developed from scratch using its own methods for multiplayer synchronization, data base handling and game visualization.
+
+Numerous (round-based) business games exist as stand-alone applications. For example, Jacobs \cite{sa2} or Ravid and Sheizaf \cite{sa1} use Java applets in order to realise the Beer Distribution Game. 
+
+%\subsection{Frameworks}
+%\label{sec:framework}
+
+\section{Frameworks}
+\label{sec:framework}
+
+In contrast to a stand-alone application, frameworks support game development and game play for a whole class of games. The goal of this thesis is to build such a framework for the class of round-based games. Previous work on this field has been carried out in Japan for several years.
+
+\subsection{Business Model Description Language (BMDL) and Business Model Development System (BMDS)}
+\label{subsec:bmdl}
+
+In 1997 a business simulation course of the Tsukuba University in Japan adopted a new approach allowing their MBA students to develop their own business simulations instead of playing existing conventional business games. The experience of creating their own business models was supposed to convey a better understanding of management skills and of good management decisions. Since only few people had the computer skills and the programming experience needed to implement a whole simulator, a simulation toolkit was developed with the intention to enable easy simulation development for everyone. This toolkit, also referred to as compiler, consists of a business model description language (BMDL) and a business model development system (BMDS) \cite{bmdl3, bmdl2, bmdl1}.
+
+\subsubsection{BMDL}
+\label{subsub:bmdl}
+%\paragraph{BMDL.}
+
+BMDL is a description language especially invented to create business simulations. It supports all the mechanisms needed for round-based business games. The language consists of a set of 17 keywords (commands) of which the most important ones are presented here. A complete specification of the language can be found in the paper \textit{A compiler for business simulations: Towards business model development by yourselves} \cite{bmdl1}.
+
+\begin{description}
+\item[Def.] Game independent settings are  defined using the def-command. Every game must define a game name, the maximal number of players as well as the maximal number of rounds to play. In BMDL, players are also referred to as teams.
+\item[Gcon\&scon.] Constants are defined using the gcon- or scon-command. The definition of both commands is \textit{gcon/scon constant-name value}. Gcon introduces a single-valued constant. Scon is an enumeration of constants. Here, the number of values must correspond to the number of rounds so that one value exists for each round. An additional value can exist for the initial state of the constant.
+\item[Ivar.] This command defines an input variable. In a round-based game, each player has to take one or several decisions in each round. One input variable corresponds to one decision. In BMDL, the domain of input variables is numeric. It can refer to an interval or a fixed set of values.
+\item[Tvar.] This command defines a so-called team variable. Its definition is \textit{tvar variable-name initial-value}. A team variable could be described as a calculated, numeric, player-specific outcome of a round. This outcome is calculated accessing the game history and constants. The game history consists of the players' input decisions of the current and of previous rounds as well as the realisation of team variables of previous rounds including their initial-value. Team variable values of the current round can also be accessed if they have already been calculated.
+\item[Tlet.] This command defines how a team variable is calculated in each round. Its definition is \textit{tlet expression} while expression is a piece of code using the syntax and the functions of the C Programming Language. 
+
+The following example shows how the tlet-command works. It assumes a simulation with the input variable \textit{price} and the team variables \textit{sales} and \textit{pr}. The profit ratio $pr$ indicates increasing or decreasing profit in the current round compared to the previous round. In BMDL, this would be translated into $tlet \; pr=(sales*price)/(sales@1*price@1)$. It introduces the relative @-notation in order to access variable values of previous rounds. Tables \ref{tab:bmdl1} and \ref{tab:bmdl2} show an example for the first two rounds and two players supposing the initial state of the game as defined in table \ref{tab:bmdl0}.
+
+\begin{table}[ht]
+	\centering
+    \begin{tabular}{ l| c c c }
+      & price & sales & profit ratio (pr) \\
+      \hline
+      player/team 1 & 0.50 & 60 & 1\\
+      player/team 2 & 0.50 & 60 & 1\\
+    \end{tabular}
+	\caption{Initial state of the example game}
+    \label{tab:bmdl0}
+\end{table}
+
+\begin{table}[ht]
+	\centering
+    \begin{tabular}{ l| c c c }
+      & price & sales & profit ratio (pr) \\
+      \hline
+      player/team 1 & 1.00 & 45 & $\frac{45}{30}=\frac{3}{2}$\\
+      player/team 2 & 2.00 & 10 & $\frac{20}{30}=\frac{2}{3}$\\
+    \end{tabular}
+	\caption{Example game in round 1}
+    \label{tab:bmdl1}
+\end{table}
+
+\begin{table}[ht]
+	\centering
+    \begin{tabular}{ c| c c c }
+      & price & sales & profit ratio (pr) \\
+      \hline
+      player/team 1 & 3.00 & 5 & $\frac{15}{45}=\frac{1}{3}$\\
+      player/team 2 & 2.00 & 15 & $\frac{30}{20}=\frac{3}{2}$\\
+    \end{tabular}
+	\caption{Example game in round 2}
+    \label{tab:bmdl2}
+\end{table}
+\end{description}
+
+\subsubsection{BMDS}
+\label{subsub:bmds}
+
+%\paragraph{BMDS.}
+
+After a business game has been developed in BMDL it must be translated so that multiple players can play against each other in their browsers. 
+
+The module responsible for this translation is referred to as the BMDL translator \cite{bmdl3, bmdl2, bmdl1} or as Game Generator (GG) system \cite{ybg1}. It is a Perl script that reads the BMDL file and generates Common Gateway Interface (CGI) programs written in C. These so-called business-game-runtime-system-components are then deployed on a standard web server and the game can be played by multiple users in the browser. 
+
+The web server also needs to run a database where variable values as shown in the example above can be stored after player-input or after round-calculation and from which variable values can be retrieved for calculations in later rounds.
+
+\subsection{Yokohama Business Game (YBG)}
+\label{subsec:ybg}
+
+The work on BMDL and BMDS was quite successful. Students evaluated it as interesting and recommendable to others and requested to use it in further lessons. Most students rated the complexity of the course as moderate compared to an earlier approach where supplementary programming tasks in C made the understanding of business models too difficult \cite{bmdl3, bmdl2, bmdl1}.
+
+In addition to many game implementations within the simulation course, BMDS was used for a business game simulating the selection of investment projects \cite{bmdsinvest}. Moreover, it was extended so that artificial agents could be employed along with real players \cite{bmdsagent1, bmdsagent2}.  
+
+BMDS was further developed as a system called Yokohama Business Game (YBG). The work on YBG was carried on for several years with a first release of YBG1.0 in 2002 and the final release of YBG2007 in 2007. Many games exist for the YBG platform and it is, or has been used in 70 universities including universities in the US, China and France. A public game server\footnote{http://ybg.ac.jp, retrieved on 20 Oct. 2015} is available in Japanese language \cite{ybg1, ybg2}.
+
+The main improvements of YBG are described in the paper \textit{Facilitating Business Gaming Simulation Modeling} \cite{ybg1}. It introduces a web-based game development environment so that BMDL games can be developed remotely without having to invoke the GG script manually. 
+
+This environment includes different mechanisms to facilitate the game development process. A template structures an empty BMDL file into different sections (constants, inputs, outputs) that every game needs to specify. A conceptual game development framework tries to structure the thinking process which has to be gone through in order to create a business game from the first idea to the complete program. 
+
+Above all, the development environment provides means to detect syntax and logical errors in the BMDL code. The latter can only be detected at runtime, which is why YBG introduces two different simulation mechanisms. In the first approach, the person simulating the game manually enters the inputs of each round for each player and checks if this results in the expected outputs. Since this method can be time consuming given a game with many inputs and players, the second approach makes use of artificial agents which are automatically generating the input values.
