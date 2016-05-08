@@ -116,11 +116,13 @@ app.get("/analyse", function (req, res) {
     }
 });
 app.get("/docu", function (req, res) {
+    database.collection('logs').update( {}, { $inc : { "docuCounter" : 1 } });
     res.sendFile(__dirname + "/thesis/thesis.html");
     //res.download(__dirname + '/public/files/Thesis_160111.pdf', 'Documentation.pdf');
 });
 
 app.get("/docuPdf", function (req, res) {
+    database.collection('logs').update( {}, { $inc : { "docuPdfCounter" : 1 } });
     res.download(__dirname + '/public/files/Thesis_160111.pdf', 'Documentation.pdf');
 });
 
