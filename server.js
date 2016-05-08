@@ -114,6 +114,11 @@ app.get("/analyse", function (req, res) {
     }
 });
 app.get("/docu", function (req, res) {
+    res.sendFile(__dirname + "/thesis/thesis.html");
+    //res.download(__dirname + '/public/files/Thesis_160111.pdf', 'Documentation.pdf');
+});
+
+app.get("/docuPdf", function (req, res) {
     res.download(__dirname + '/public/files/Thesis_160111.pdf', 'Documentation.pdf');
 });
 
