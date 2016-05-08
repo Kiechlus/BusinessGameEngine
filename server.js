@@ -73,6 +73,8 @@ app.use(express.static(__dirname + "/public"));
 // A simple file server
 app.use("/files", express.static(__dirname + "/files"));
 
+app.use("/thesis", express.static(__dirname + "/thesis"));
+
 // startpage
 app.get("/", function (req, res) {
 	// render games.jade in the /views folder. This injects the CSRF token into the html.
