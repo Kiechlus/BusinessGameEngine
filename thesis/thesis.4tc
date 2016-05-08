@@ -1,0 +1,111 @@
+\expandafter\ifx\csname doTocEntry\endcsname\relax \expandafter\endinput\fi
+\doTocEntry\toclikechapter{}{\csname a:TocLink\endcsname{1}{x1-1000}{QQ2-1-1}{Contents}}{3}\relax 
+\doTocEntry\toclikechapter{}{\csname a:TocLink\endcsname{1}{x1-2000}{QQ2-1-2}{List of Figures}}{1}\relax 
+\doTocEntry\tocchapter{1}{\csname a:TocLink\endcsname{1}{x1-30001}{QQ2-1-3}{Introduction}}{3}\relax 
+\doTocEntry\tocchapter{2}{\csname a:TocLink\endcsname{1}{x1-40002}{QQ2-1-4}{Related work}}{7}\relax 
+\doTocEntry\tocsection{2.1}{\csname a:TocLink\endcsname{1}{x1-50002.1}{QQ2-1-5}{Business games}}{7}\relax 
+\doTocEntry\tocsubsection{2.1.1}{\csname a:TocLink\endcsname{1}{x1-60002.1.1}{QQ2-1-6}{History and purpose}}{7}\relax 
+\doTocEntry\tocsubsection{2.1.2}{\csname a:TocLink\endcsname{1}{x1-70002.1.2}{QQ2-1-7}{Taxonomy}}{8}\relax 
+\doTocEntry\tocsection{2.2}{\csname a:TocLink\endcsname{1}{x1-80002.2}{QQ2-1-8}{Stand-alone applications}}{8}\relax 
+\doTocEntry\tocsection{2.3}{\csname a:TocLink\endcsname{1}{x1-90002.3}{QQ2-1-9}{Frameworks}}{8}\relax 
+\doTocEntry\tocsubsection{2.3.1}{\csname a:TocLink\endcsname{1}{x1-100002.3.1}{QQ2-1-10}{Business Model Description Language (BMDL) and Business Model Development System (BMDS)}}{8}\relax 
+\doTocEntry\tocsubsubsection{2.3.1.1}{\csname a:TocLink\endcsname{1}{x1-110002.3.1.1}{QQ2-1-11}{BMDL}}{9}\relax 
+\doTocEntry\toclot{2.1}{\csname a:TocLink\endcsname{1}{x1-11001r1}{}{\ignorespaces Initial state of the example game}}{table}\relax 
+\doTocEntry\toclot{2.2}{\csname a:TocLink\endcsname{1}{x1-11002r2}{}{\ignorespaces Example game in round 1}}{table}\relax 
+\doTocEntry\toclot{2.3}{\csname a:TocLink\endcsname{1}{x1-11003r3}{}{\ignorespaces Example game in round 2}}{table}\relax 
+\doTocEntry\tocsubsubsection{2.3.1.2}{\csname a:TocLink\endcsname{1}{x1-120002.3.1.2}{QQ2-1-15}{BMDS}}{10}\relax 
+\doTocEntry\tocsubsection{2.3.2}{\csname a:TocLink\endcsname{1}{x1-130002.3.2}{QQ2-1-16}{Yokohama Business Game (YBG)}}{11}\relax 
+\doTocEntry\tocchapter{3}{\csname a:TocLink\endcsname{1}{x1-140003}{QQ2-1-17}{The game class supported by BGE}}{15}\relax 
+\doTocEntry\tocsection{3.1}{\csname a:TocLink\endcsname{1}{x1-150003.1}{QQ2-1-18}{Common features}}{15}\relax 
+\doTocEntry\tocsection{3.2}{\csname a:TocLink\endcsname{1}{x1-160003.2}{QQ2-1-19}{{N}-player round-based games}}{16}\relax 
+\doTocEntry\tocsubsection{3.2.1}{\csname a:TocLink\endcsname{1}{x1-170003.2.1}{QQ2-1-20}{A general framework}}{16}\relax 
+\doTocEntry\tocsubsection{3.2.2}{\csname a:TocLink\endcsname{1}{x1-180003.2.2}{QQ2-1-21}{Applying the framework}}{21}\relax 
+\doTocEntry\tocparagraph{}{\csname a:TocLink\endcsname{1}{x1-190003.2.2}{QQ2-1-22}{Initialization.}}{21}\relax 
+\doTocEntry\tocloa{1}{\csname a:TocLink\endcsname{1}{x1-19001r1}{}{\ignorespaces $\mathtt@@ {}$}}{algorithm}\relax 
+\doTocEntry\tocparagraph{}{\csname a:TocLink\endcsname{1}{x1-200003.2.2}{QQ2-1-24}{First round.}}{25}\relax 
+\doTocEntry\tocparagraph{}{\csname a:TocLink\endcsname{1}{x1-210003.2.2}{QQ2-1-25}{Second round.}}{25}\relax 
+\doTocEntry\tocparagraph{}{\csname a:TocLink\endcsname{1}{x1-220003.2.2}{QQ2-1-26}{Last round.}}{25}\relax 
+\doTocEntry\tocchapter{4}{\csname a:TocLink\endcsname{1}{x1-230004}{QQ2-1-27}{Architecture design}}{29}\relax 
+\doTocEntry\tocsection{4.1}{\csname a:TocLink\endcsname{1}{x1-240004.1}{QQ2-1-28}{Software requirements}}{29}\relax 
+\doTocEntry\tocsubsection{4.1.1}{\csname a:TocLink\endcsname{1}{x1-250004.1.1}{QQ2-1-29}{Description mechanism}}{29}\relax 
+\doTocEntry\tocsubsection{4.1.2}{\csname a:TocLink\endcsname{1}{x1-260004.1.2}{QQ2-1-30}{Game development environment}}{30}\relax 
+\doTocEntry\tocsubsection{4.1.3}{\csname a:TocLink\endcsname{1}{x1-270004.1.3}{QQ2-1-31}{Simulation environment}}{30}\relax 
+\doTocEntry\tocsubsection{4.1.4}{\csname a:TocLink\endcsname{1}{x1-280004.1.4}{QQ2-1-32}{Playing environment}}{30}\relax 
+\doTocEntry\tocsubsection{4.1.5}{\csname a:TocLink\endcsname{1}{x1-290004.1.5}{QQ2-1-33}{Analysis environment}}{31}\relax 
+\doTocEntry\tocsection{4.2}{\csname a:TocLink\endcsname{1}{x1-300004.2}{QQ2-1-34}{Business Game Description (BGD)}}{31}\relax 
+\doTocEntry\tocsubsection{4.2.1}{\csname a:TocLink\endcsname{1}{x1-310004.2.1}{QQ2-1-35}{BGD object model}}{32}\relax 
+\doTocEntry\toclof{4.1}{\csname a:TocLink\endcsname{1}{x1-31001r1}{}{\ignorespaces UML diagram of the Business Game Description (BGD) model with chapter references.}}{figure}\relax 
+\doTocEntry\tocsubsubsection{4.2.1.1}{\csname a:TocLink\endcsname{1}{x1-320004.2.1.1}{QQ2-1-37}{Parameter object}}{35}\relax 
+\doTocEntry\tocsubsubsection{4.2.1.2}{\csname a:TocLink\endcsname{1}{x1-330004.2.1.2}{QQ2-1-38}{Variable object}}{35}\relax 
+\doTocEntry\tocparagraph{}{\csname a:TocLink\endcsname{1}{x1-340004.2.1.2}{QQ2-1-39}{Input variable.}}{36}\relax 
+\doTocEntry\tocparagraph{}{\csname a:TocLink\endcsname{1}{x1-350004.2.1.2}{QQ2-1-40}{Chart.}}{37}\relax 
+\doTocEntry\tocparagraph{}{\csname a:TocLink\endcsname{1}{x1-360004.2.1.2}{QQ2-1-41}{Output variable.}}{37}\relax 
+\doTocEntry\tocsubsubsection{4.2.1.3}{\csname a:TocLink\endcsname{1}{x1-370004.2.1.3}{QQ2-1-42}{Score function}}{38}\relax 
+\doTocEntry\tocsubsubsection{4.2.1.4}{\csname a:TocLink\endcsname{1}{x1-380004.2.1.4}{QQ2-1-43}{Questionnaire object}}{39}\relax 
+\doTocEntry\tocsubsubsection{4.2.1.5}{\csname a:TocLink\endcsname{1}{x1-390004.2.1.5}{QQ2-1-44}{Utility and Mathematics object}}{40}\relax 
+\doTocEntry\tocparagraph{}{\csname a:TocLink\endcsname{1}{x1-400004.2.1.5}{QQ2-1-45}{Utility.}}{40}\relax 
+\doTocEntry\tocparagraph{}{\csname a:TocLink\endcsname{1}{x1-410004.2.1.5}{QQ2-1-46}{Mathematics.}}{40}\relax 
+\doTocEntry\tocparagraph{}{\csname a:TocLink\endcsname{1}{x1-420004.2.1.5}{QQ2-1-47}{Others.}}{42}\relax 
+\doTocEntry\tocsubsection{4.2.2}{\csname a:TocLink\endcsname{1}{x1-430004.2.2}{QQ2-1-48}{BGD development}}{42}\relax 
+\doTocEntry\tocsubsubsection{4.2.2.1}{\csname a:TocLink\endcsname{1}{x1-440004.2.2.1}{QQ2-1-49}{Automatic game verification}}{43}\relax 
+\doTocEntry\tocparagraph{}{\csname a:TocLink\endcsname{1}{x1-450004.2.2.1}{QQ2-1-50}{Syntax.}}{43}\relax 
+\doTocEntry\tocparagraph{}{\csname a:TocLink\endcsname{1}{x1-460004.2.2.1}{QQ2-1-51}{Semantics.}}{43}\relax 
+\doTocEntry\tocsubsubsection{4.2.2.2}{\csname a:TocLink\endcsname{1}{x1-470004.2.2.2}{QQ2-1-52}{Security considerations}}{44}\relax 
+\doTocEntry\tocparagraph{}{\csname a:TocLink\endcsname{1}{x1-480004.2.2.2}{QQ2-1-53}{Server-side.}}{45}\relax 
+\doTocEntry\tocparagraph{}{\csname a:TocLink\endcsname{1}{x1-490004.2.2.2}{QQ2-1-54}{Client-side.}}{45}\relax 
+\doTocEntry\tocsection{4.3}{\csname a:TocLink\endcsname{1}{x1-500004.3}{QQ2-1-55}{Business Game Engine (BGE)}}{46}\relax 
+\doTocEntry\tocsubsection{4.3.1}{\csname a:TocLink\endcsname{1}{x1-510004.3.1}{QQ2-1-56}{Development environment}}{46}\relax 
+\doTocEntry\tocsubsection{4.3.2}{\csname a:TocLink\endcsname{1}{x1-520004.3.2}{QQ2-1-57}{Simulation and playing environment}}{47}\relax 
+\doTocEntry\tocsubsubsection{4.3.2.1}{\csname a:TocLink\endcsname{1}{x1-530004.3.2.1}{QQ2-1-58}{Player}}{47}\relax 
+\doTocEntry\tocsubsubsection{4.3.2.2}{\csname a:TocLink\endcsname{1}{x1-540004.3.2.2}{QQ2-1-59}{Round}}{48}\relax 
+\doTocEntry\tocsubsubsection{4.3.2.3}{\csname a:TocLink\endcsname{1}{x1-550004.3.2.3}{QQ2-1-60}{Game and simulation flow}}{49}\relax 
+\doTocEntry\tocparagraph{}{\csname a:TocLink\endcsname{1}{x1-560004.3.2.3}{QQ2-1-61}{Entrance hall.}}{50}\relax 
+\doTocEntry\tocparagraph{}{\csname a:TocLink\endcsname{1}{x1-570004.3.2.3}{QQ2-1-62}{Game engine.}}{50}\relax 
+\doTocEntry\tocchapter{5}{\csname a:TocLink\endcsname{1}{x1-580005}{QQ2-1-63}{Implementation}}{55}\relax 
+\doTocEntry\toclof{5.1}{\csname a:TocLink\endcsname{1}{x1-58001r1}{}{\ignorespaces BGE architecture overview}}{figure}\relax 
+\doTocEntry\tocsection{5.1}{\csname a:TocLink\endcsname{1}{x1-590005.1}{QQ2-1-65}{Choice of technology}}{58}\relax 
+\doTocEntry\tocsubsection{5.1.1}{\csname a:TocLink\endcsname{1}{x1-600005.1.1}{QQ2-1-66}{BGD object model}}{58}\relax 
+\doTocEntry\tocsubsection{5.1.2}{\csname a:TocLink\endcsname{1}{x1-610005.1.2}{QQ2-1-67}{Client-server-communication: the WebSocket Protocol}}{59}\relax 
+\doTocEntry\tocsubsection{5.1.3}{\csname a:TocLink\endcsname{1}{x1-620005.1.3}{QQ2-1-68}{Server-side JavaScript}}{62}\relax 
+\doTocEntry\tocsubsubsection{5.1.3.1}{\csname a:TocLink\endcsname{1}{x1-630005.1.3.1}{QQ2-1-69}{Asynchronous execution model of JavaScript}}{62}\relax 
+\doTocEntry\toclol{}{\csname a:TocLink\endcsname{1}{x1-63002}{}{\numberline {5.1}JavaScript's asynchronous execution model}}{63}\relax 
+\doTocEntry\tocsubsubsection{5.1.3.2}{\csname a:TocLink\endcsname{1}{x1-640005.1.3.2}{QQ2-1-71}{JavaScript on the server: Node.js}}{64}\relax 
+\doTocEntry\toclof{5.2}{\csname a:TocLink\endcsname{1}{x1-64002r2}{}{\ignorespaces Node.js architecture overview. Source: stackoverflow.com/questions/36491385}}{figure}\relax 
+\doTocEntry\toclol{}{\csname a:TocLink\endcsname{1}{x1-64012}{}{\numberline {5.2}Libuv example program. \newline  Based on https://github.com/nikhilm/uvbook/tree/master/code/uvcat}}{72}\relax 
+\doTocEntry\toclol{}{\csname a:TocLink\endcsname{1}{x1-64036}{}{\numberline {5.3}Example program in JavaScript using Node.js.}}{74}\relax 
+\doTocEntry\tocsubsubsection{5.1.3.3}{\csname a:TocLink\endcsname{1}{x1-650005.1.3.3}{QQ2-1-75}{The big picture: Two event loops and WebSockets}}{74}\relax 
+\doTocEntry\toclof{5.3}{\csname a:TocLink\endcsname{1}{x1-65001r3}{}{\ignorespaces BGE architecture: Two event loops and WebSockets.}}{figure}\relax 
+\doTocEntry\tocsubsection{5.1.4}{\csname a:TocLink\endcsname{1}{x1-660005.1.4}{QQ2-1-77}{NoSQL Database}}{77}\relax 
+\doTocEntry\tocsection{5.2}{\csname a:TocLink\endcsname{1}{x1-670005.2}{QQ2-1-78}{Module realisation}}{80}\relax 
+\doTocEntry\tocsubsection{5.2.1}{\csname a:TocLink\endcsname{1}{x1-680005.2.1}{QQ2-1-79}{Startpage}}{81}\relax 
+\doTocEntry\toclof{5.4}{\csname a:TocLink\endcsname{1}{x1-68001r4}{}{\ignorespaces Startpage module}}{figure}\relax 
+\doTocEntry\tocsubsection{5.2.2}{\csname a:TocLink\endcsname{1}{x1-690005.2.2}{QQ2-1-81}{Online editor and feedback screen}}{84}\relax 
+\doTocEntry\toclof{5.5}{\csname a:TocLink\endcsname{1}{x1-69001r5}{}{\ignorespaces Editor and feedback screen module}}{figure}\relax 
+\doTocEntry\tocsubsection{5.2.3}{\csname a:TocLink\endcsname{1}{x1-700005.2.3}{QQ2-1-83}{Entrance hall and game engine}}{87}\relax 
+\doTocEntry\toclot{5.1}{\csname a:TocLink\endcsname{1}{x1-70002r1}{}{\ignorespaces Socket events on client and server }}{table}\relax 
+\doTocEntry\toclof{5.6}{\csname a:TocLink\endcsname{1}{x1-70003r6}{}{\ignorespaces Screenshot of two players playing the \textit  {SaltSeller} business game after two rounds have been played}}{figure}\relax 
+\doTocEntry\toclof{5.7}{\csname a:TocLink\endcsname{1}{x1-70004r7}{}{\ignorespaces Example of a questionnaire which is displayed after the game has finished}}{figure}\relax 
+\doTocEntry\tocsubsection{5.2.4}{\csname a:TocLink\endcsname{1}{x1-710005.2.4}{QQ2-1-87}{Game analysis}}{98}\relax 
+\doTocEntry\tocsection{5.3}{\csname a:TocLink\endcsname{1}{x1-720005.3}{QQ2-1-88}{Dependencies}}{99}\relax 
+\doTocEntry\toclot{5.2}{\csname a:TocLink\endcsname{1}{x1-72001r2}{}{\ignorespaces BGE dependencies }}{table}\relax 
+\doTocEntry\tocsection{5.4}{\csname a:TocLink\endcsname{1}{x1-730005.4}{QQ2-1-90}{Installation guide}}{102}\relax 
+\doTocEntry\tocsubsection{5.4.1}{\csname a:TocLink\endcsname{1}{x1-740005.4.1}{QQ2-1-91}{Prerequisites}}{102}\relax 
+\doTocEntry\tocsubsection{5.4.2}{\csname a:TocLink\endcsname{1}{x1-750005.4.2}{QQ2-1-92}{BGE installation}}{102}\relax 
+\doTocEntry\tocsubsection{5.4.3}{\csname a:TocLink\endcsname{1}{x1-760005.4.3}{QQ2-1-93}{Run it locally}}{103}\relax 
+\doTocEntry\tocsubsection{5.4.4}{\csname a:TocLink\endcsname{1}{x1-770005.4.4}{QQ2-1-94}{Deployment}}{103}\relax 
+\doTocEntry\tocchapter{6}{\csname a:TocLink\endcsname{1}{x1-780006}{QQ2-1-95}{Conclusion and outlook}}{105}\relax 
+\doTocEntry\tocsection{6.1}{\csname a:TocLink\endcsname{1}{x1-790006.1}{QQ2-1-96}{Conclusion}}{105}\relax 
+\doTocEntry\tocsection{6.2}{\csname a:TocLink\endcsname{1}{x1-800006.2}{QQ2-1-97}{Future work}}{105}\relax 
+\doTocEntry\tocsubsection{6.2.1}{\csname a:TocLink\endcsname{1}{x1-810006.2.1}{QQ2-1-98}{Roles}}{106}\relax 
+\doTocEntry\tocsubsection{6.2.2}{\csname a:TocLink\endcsname{1}{x1-820006.2.2}{QQ2-1-99}{Advanced entrance hall}}{106}\relax 
+\doTocEntry\tocsubsection{6.2.3}{\csname a:TocLink\endcsname{1}{x1-830006.2.3}{QQ2-1-100}{Advanced analysis environment}}{106}\relax 
+\doTocEntry\toclof{6.1}{\csname a:TocLink\endcsname{1}{x1-83001r1}{}{\ignorespaces Example UI for a local query criteria rule generator}}{figure}\relax 
+\doTocEntry\tocsubsection{6.2.4}{\csname a:TocLink\endcsname{1}{x1-840006.2.4}{QQ2-1-102}{Tabular output}}{109}\relax 
+\doTocEntry\toclol{}{\csname a:TocLink\endcsname{1}{x1-84002}{}{\numberline {6.1}BGD table extension: orders in the beergame}}{111}\relax 
+\doTocEntry\tocappendix{A}{\csname a:TocLink\endcsname{1}{x1-85000A}{QQ2-1-104}{Appendix}}{115}\relax 
+\doTocEntry\tocsection{A.1}{\csname a:TocLink\endcsname{1}{x1-86000A.1}{QQ2-1-105}{Stone-paper-scissors}}{116}\relax 
+\doTocEntry\toclol{}{\csname a:TocLink\endcsname{1}{x1-86002}{}{\numberline {A.1}Game code of stone-paper-scissors}}{116}\relax 
+\doTocEntry\tocsection{A.2}{\csname a:TocLink\endcsname{1}{x1-87000A.2}{QQ2-1-107}{Beergame}}{118}\relax 
+\doTocEntry\toclol{}{\csname a:TocLink\endcsname{1}{x1-87002}{}{\numberline {A.2}Game code of the beergame}}{118}\relax 
+\doTocEntry\tocchapter{}{\csname a:TocLink\endcsname{1}{Q1-1-109}{}{Bibliography}}{121}\relax 
+\doTocEntry\toclikechapter{}{\csname a:TocLink\endcsname{1}{x1-88000A.2}{QQ2-1-110}{Bibliography}}{123}\relax 

@@ -1,0 +1,17 @@
+\select@language {english}
+\addvspace {10\p@ }
+\addvspace {10\p@ }
+\addvspace {10\p@ }
+\addvspace {10\p@ }
+\contentsline {figure}{\numberline {4.1}{\ignorespaces UML diagram of the Business Game Description (BGD) model with chapter references.}}{20}{figure.4.1}
+\addvspace {10\p@ }
+\contentsline {figure}{\numberline {5.1}{\ignorespaces BGE architecture overview}}{36}{figure.5.1}
+\contentsline {figure}{\numberline {5.2}{\ignorespaces Node.js architecture overview. Source: stackoverflow.com/questions/36491385}}{41}{figure.5.2}
+\contentsline {figure}{\numberline {5.3}{\ignorespaces BGE architecture: Two event loops and WebSockets.}}{45}{figure.5.3}
+\contentsline {figure}{\numberline {5.4}{\ignorespaces Startpage module}}{48}{figure.5.4}
+\contentsline {figure}{\numberline {5.5}{\ignorespaces Editor and feedback screen module}}{48}{figure.5.5}
+\contentsline {figure}{\numberline {5.6}{\ignorespaces Screenshot of two players playing the \textit {SaltSeller} business game after two rounds have been played}}{49}{figure.5.6}
+\contentsline {figure}{\numberline {5.7}{\ignorespaces Example of a questionnaire which is displayed after the game has finished}}{49}{figure.5.7}
+\addvspace {10\p@ }
+\contentsline {figure}{\numberline {6.1}{\ignorespaces Example UI for a local query criteria rule generator}}{57}{figure.6.1}
+\addvspace {10\p@ }

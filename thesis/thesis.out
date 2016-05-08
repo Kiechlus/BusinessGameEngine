@@ -1,0 +1,69 @@
+\BOOKMARK [0][-]{chapter.1}{Introduction}{}% 1
+\BOOKMARK [0][-]{chapter.2}{Related work}{}% 2
+\BOOKMARK [1][-]{section.2.1}{Business games}{chapter.2}% 3
+\BOOKMARK [2][-]{subsection.2.1.1}{History and purpose}{section.2.1}% 4
+\BOOKMARK [2][-]{subsection.2.1.2}{Taxonomy}{section.2.1}% 5
+\BOOKMARK [1][-]{section.2.2}{Stand-alone applications}{chapter.2}% 6
+\BOOKMARK [1][-]{section.2.3}{Frameworks}{chapter.2}% 7
+\BOOKMARK [2][-]{subsection.2.3.1}{Business Model Description Language \(BMDL\) and Business Model Development System \(BMDS\)}{section.2.3}% 8
+\BOOKMARK [3][-]{subsubsection.2.3.1.1}{BMDL}{subsection.2.3.1}% 9
+\BOOKMARK [3][-]{subsubsection.2.3.1.2}{BMDS}{subsection.2.3.1}% 10
+\BOOKMARK [2][-]{subsection.2.3.2}{Yokohama Business Game \(YBG\)}{section.2.3}% 11
+\BOOKMARK [0][-]{chapter.3}{The game class supported by BGE}{}% 12
+\BOOKMARK [1][-]{section.3.1}{Common features}{chapter.3}% 13
+\BOOKMARK [1][-]{section.3.2}{N-player round-based games}{chapter.3}% 14
+\BOOKMARK [2][-]{subsection.3.2.1}{A general framework}{section.3.2}% 15
+\BOOKMARK [2][-]{subsection.3.2.2}{Applying the framework}{section.3.2}% 16
+\BOOKMARK [0][-]{chapter.4}{Architecture design}{}% 17
+\BOOKMARK [1][-]{section.4.1}{Software requirements}{chapter.4}% 18
+\BOOKMARK [2][-]{subsection.4.1.1}{Description mechanism}{section.4.1}% 19
+\BOOKMARK [2][-]{subsection.4.1.2}{Game development environment}{section.4.1}% 20
+\BOOKMARK [2][-]{subsection.4.1.3}{Simulation environment}{section.4.1}% 21
+\BOOKMARK [2][-]{subsection.4.1.4}{Playing environment}{section.4.1}% 22
+\BOOKMARK [2][-]{subsection.4.1.5}{Analysis environment}{section.4.1}% 23
+\BOOKMARK [1][-]{section.4.2}{Business Game Description \(BGD\)}{chapter.4}% 24
+\BOOKMARK [2][-]{subsection.4.2.1}{BGD object model}{section.4.2}% 25
+\BOOKMARK [3][-]{subsubsection.4.2.1.1}{Parameter object}{subsection.4.2.1}% 26
+\BOOKMARK [3][-]{subsubsection.4.2.1.2}{Variable object}{subsection.4.2.1}% 27
+\BOOKMARK [3][-]{subsubsection.4.2.1.3}{Score function}{subsection.4.2.1}% 28
+\BOOKMARK [3][-]{subsubsection.4.2.1.4}{Questionnaire object}{subsection.4.2.1}% 29
+\BOOKMARK [3][-]{subsubsection.4.2.1.5}{Utility and Mathematics object}{subsection.4.2.1}% 30
+\BOOKMARK [2][-]{subsection.4.2.2}{BGD development}{section.4.2}% 31
+\BOOKMARK [3][-]{subsubsection.4.2.2.1}{Automatic game verification}{subsection.4.2.2}% 32
+\BOOKMARK [3][-]{subsubsection.4.2.2.2}{Security considerations}{subsection.4.2.2}% 33
+\BOOKMARK [1][-]{section.4.3}{Business Game Engine \(BGE\)}{chapter.4}% 34
+\BOOKMARK [2][-]{subsection.4.3.1}{Development environment}{section.4.3}% 35
+\BOOKMARK [2][-]{subsection.4.3.2}{Simulation and playing environment}{section.4.3}% 36
+\BOOKMARK [3][-]{subsubsection.4.3.2.1}{Player}{subsection.4.3.2}% 37
+\BOOKMARK [3][-]{subsubsection.4.3.2.2}{Round}{subsection.4.3.2}% 38
+\BOOKMARK [3][-]{subsubsection.4.3.2.3}{Game and simulation flow}{subsection.4.3.2}% 39
+\BOOKMARK [0][-]{chapter.5}{Implementation}{}% 40
+\BOOKMARK [1][-]{section.5.1}{Choice of technology}{chapter.5}% 41
+\BOOKMARK [2][-]{subsection.5.1.1}{BGD object model}{section.5.1}% 42
+\BOOKMARK [2][-]{subsection.5.1.2}{Client-server-communication: the WebSocket Protocol}{section.5.1}% 43
+\BOOKMARK [2][-]{subsection.5.1.3}{Server-side JavaScript}{section.5.1}% 44
+\BOOKMARK [3][-]{subsubsection.5.1.3.1}{Asynchronous execution model of JavaScript}{subsection.5.1.3}% 45
+\BOOKMARK [3][-]{subsubsection.5.1.3.2}{JavaScript on the server: Node.js}{subsection.5.1.3}% 46
+\BOOKMARK [3][-]{subsubsection.5.1.3.3}{The big picture: Two event loops and WebSockets}{subsection.5.1.3}% 47
+\BOOKMARK [2][-]{subsection.5.1.4}{NoSQL Database}{section.5.1}% 48
+\BOOKMARK [1][-]{section.5.2}{Module realisation}{chapter.5}% 49
+\BOOKMARK [2][-]{subsection.5.2.1}{Startpage}{section.5.2}% 50
+\BOOKMARK [2][-]{subsection.5.2.2}{Online editor and feedback screen}{section.5.2}% 51
+\BOOKMARK [2][-]{subsection.5.2.3}{Entrance hall and game engine}{section.5.2}% 52
+\BOOKMARK [2][-]{subsection.5.2.4}{Game analysis}{section.5.2}% 53
+\BOOKMARK [1][-]{section.5.3}{Dependencies}{chapter.5}% 54
+\BOOKMARK [1][-]{section.5.4}{Installation guide}{chapter.5}% 55
+\BOOKMARK [2][-]{subsection.5.4.1}{Prerequisites}{section.5.4}% 56
+\BOOKMARK [2][-]{subsection.5.4.2}{BGE installation}{section.5.4}% 57
+\BOOKMARK [2][-]{subsection.5.4.3}{Run it locally}{section.5.4}% 58
+\BOOKMARK [2][-]{subsection.5.4.4}{Deployment}{section.5.4}% 59
+\BOOKMARK [0][-]{chapter.6}{Conclusion and outlook}{}% 60
+\BOOKMARK [1][-]{section.6.1}{Conclusion}{chapter.6}% 61
+\BOOKMARK [1][-]{section.6.2}{Future work}{chapter.6}% 62
+\BOOKMARK [2][-]{subsection.6.2.1}{Roles}{section.6.2}% 63
+\BOOKMARK [2][-]{subsection.6.2.2}{Advanced entrance hall}{section.6.2}% 64
+\BOOKMARK [2][-]{subsection.6.2.3}{Advanced analysis environment}{section.6.2}% 65
+\BOOKMARK [2][-]{subsection.6.2.4}{Tabular output}{section.6.2}% 66
+\BOOKMARK [0][-]{appendix.A}{Appendix}{}% 67
+\BOOKMARK [1][-]{section.A.1}{Stone-paper-scissors}{appendix.A}% 68
+\BOOKMARK [1][-]{section.A.2}{Beergame}{appendix.A}% 69

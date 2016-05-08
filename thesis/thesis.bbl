@@ -1,0 +1,195 @@
+\newcommand{\etalchar}[1]{$^{#1}$}
+\begin{thebibliography}{TTK{\etalchar{+}}02}
+\providecommand{\url}[1]{\texttt{#1}}
+\providecommand{\urlprefix}{URL }
+\providecommand{\selectlanguage}[1]{\relax}
+\providecommand{\eprint}[2][]{\url{#2}}
+
+\bibitem[ASS03]{tax2}
+Aarseth, E., Smedstad, S., and Sunnana, L. (2003) A multidimensional typology
+  of games. \emph{Level Up Conference Proceedings}, pp. 48--53.
+
+\bibitem[Ber14]{web}
+Bernard, R.R. (2014) Characterizing business games used in distance education.
+  \emph{Developments in Business Simulation and Experiential Learning}, 33, pp.
+  124--130.
+
+\bibitem[EA07]{tax3}
+Elverdam, C. and Aarseth, E. (2007) {Game Classification and Game Design
+  Construction Through Critical Analysis}. \emph{Games and Culture}, 2(1), pp.
+  3--22.
+
+\bibitem[Eil63]{eilon}
+Eilon, S. (1963) Management games. \emph{Journal of the Operational Research
+  Society}, 14(2), pp. 137--149.
+
+\bibitem[Far98]{faria}
+Faria, A.J. (1998) {Business simulation games: Current usage levels - An
+  update}. \emph{Simulation \& Gaming}, 29(3), pp. 295--308.
+
+\bibitem[FM11]{websocket}
+Fette, I. and Melnikov, A. (2011) {The WebSocket Protocol}. RFC 6455, retrieved
+  on 15 Dec. 2015, \urlprefix\url{http://tools.ietf.org/html/rfc6455}.
+
+\bibitem[For61]{JForrester1961}
+Forrester, J. (1961) \emph{Industrial Dynamics}. Pegasus Communications, MA,
+  United States.
+
+\bibitem[FSS{\etalchar{+}}99]{bmdl3}
+Fujimori, H., Shirai, H., Suzuki, H., Kuno, Y., Tsuda, K., and Terano, T.
+  (1999) {Business game development toolkit for the WWW environment}. In
+  \emph{Knowledge-Based Intelligent Information Engineering Systems, 1999.
+  Third International Conference}, pp. 469--472, IEEE.
+
+\bibitem[GBN13]{greco}
+Greco, M., Baldissin, N., and Nonino, F. (2013) An exploratory taxonomy of
+  business games. \emph{Simulation \& Gaming}, 44(5), pp. 645--682.
+
+\bibitem[HCB{\etalchar{+}}11]{hack}
+Huang, L.S., Chen, E.Y., Barth, A., Rescorla, E., and Jackson, C. (2011)
+  Talking to yourself for fun and profit. \emph{Proceedings of W2SP}, pp.
+  1--11.
+
+\bibitem[Hsu89]{hsu}
+Hsu, E. (1989) {Role-event gaming simulation in management education: A
+  conceptual framework and review.} \emph{Simulation \& Games}, 20(4), pp.
+  409--438.
+
+\bibitem[{Hä}13]{nodevsjava}
+{Härle} (2013) {Java EE vs. Node.js. Eine persönliche Einschätzung}.
+  Retrieved on 15 Dec. 2015,
+  \urlprefix\url{http://yourinspirationdotnow.blogspot.de/2013/11/java-ee-vs-nodejs-eine-personliche.html}.
+
+\bibitem[Jac00]{sa2}
+Jacobs, F.R. (2000) Playing the beer distribution game over the internet.
+  \emph{Production and Operations Management}, 9(1), pp. 31--39.
+
+\bibitem[Jar63]{jarmain}
+Jarmain, W.E. (1963) \emph{Problems in industrial dynamics}. M.I.T. Press,
+  Cambridge.
+
+\bibitem[KT03]{bmdsagent1}
+Kobayashi, M. and Terano, T. (2003) Learning agents in a business simulator. In
+  \emph{Proceedings of the International Symposium on Computational
+  Intelligence in Robotics and Automation, 2003}, volume~3, pp. 1323--1327,
+  IEEE.
+
+\bibitem[KUS{\etalchar{+}}15]{saltseller}
+Kiechle, F., Uhr, C., Schlereth, M., Zhang, Y., Burkard, L.O., Sonnenbichler,
+  A.C., and Geyer{-}Schulz, A. (2015) {Salt Seller - Realization of a Business
+  Game}. In \emph{{ICE-B} 2015 - Proceedings of the 12th International
+  Conference on e-Business, Colmar, Alsace, France, 20-22 July, 2015.}, pp.
+  127--135, \urlprefix\url{http://dx.doi.org/10.5220/0005503501270135}.
+
+\bibitem[LG77]{JLarreche1977}
+Larr{\'e}ch{\'e}, J.C. and Gatignon, H. (1977) \emph{Markstrat -- A Marketing
+  Strategy Game: Teaching Notes}. Scientific Press, Palo Alto.
+
+\bibitem[MG00]{tax1}
+Maier, F.H. and Gr{\"o}{\ss}ler, A. (2000) What are we talking about? -
+  \uppercase{a} taxonomy of computer simulations to support learning.
+  \emph{System Dynamics Review}, 16(2), pp. 135--148.
+
+\bibitem[{Nod}15]{nodedoc}
+{Node.js Foundation} (2015) Node.js v5.1.1 documentation. Retrieved on 10 Dec.
+  2015, \urlprefix\url{https://nodejs.org/api/}.
+
+\bibitem[RCZS14]{rokicki_competitive_2014}
+Rokicki, M., Chelaru, S., Zerr, S., and Siersdorfer, S. (2014) Competitive
+  {Game} {Designs} for {Improving} the {Cost} {Effectiveness} of
+  {Crowdsourcing}. In \emph{Proceedings of the 23rd {ACM} {International}
+  {Conference} on {Conference} on {Information} and {Knowledge} {Management}},
+  {CIKM} '14, pp. 1469--1478, ACM, New York, NY, USA,
+  \urlprefix\url{http://doi.acm.org/10.1145/2661829.2661946}.
+
+\bibitem[RH11]{skill}
+Riedel, J. and Hauge, J.B. (2011) State of the art of serious games for
+  business and industry. In \emph{Proceedings of the 17th International
+  Conference on Concurrent Enterprising (ICE), 2011}, pp. 1--8, IEEE.
+
+\bibitem[RM57]{ricciardi}
+Ricciardi, F.M. and Marting, E. (1957) \emph{{Top management decision
+  simulation: The AMA approach}}. American Management Association.
+
+\bibitem[RR00]{sa1}
+Ravid, G. and Rafaeli, S. (2000) {Multi player, internet and java based
+  simulation games: Learning and research in implementing a computerized
+  version of the “Beer distribution supply game”}. \emph{Simulation
+  Series}, 32(2), pp. 15--22.
+
+\bibitem[Sec86]{bsd}
+Sechrest, S. (1986) {An Introductory 4.4 BSD Interprocess Communication
+  Tutorial}. \emph{Computer Science Research Group, Department of Electrical
+  Engineering and Computer Science, University of California, Berkeley}.
+
+\bibitem[Ste89]{beergame}
+Sterman, J.D. (1989) {Modeling managerial behavior: Misperceptions of feedback
+  in a dynamic decision making experiment}. \emph{Management science}, 35(3),
+  pp. 321--339.
+
+\bibitem[Ste14]{sterman}
+Sterman, J. (2014) {Interactive web-based simulations for strategy and
+  sustainability: The \uppercase{MIT} \uppercase{S}loan LearningEdge management
+  flight simulators, Part I}. \emph{System Dynamics Review}, 30(1-2), pp.
+  89--121.
+
+\bibitem[{Str}15]{stratx}
+{Stratx Simulations} (2015) {Markstrat}.
+  \url{http://web.stratxsimulations.com/simulation/strategic-marketing-simulation},
+  retrieved on 15 Dec. 2015.
+
+\bibitem[STT{\etalchar{+}}03]{bmdsagent2}
+Shirai, H., Tanabu, M., Terano, T., Kuno, Y., Suzuki, H., and Tsuda, K. (2003)
+  {Game development toolkit for business people in Japan}. \emph{Simulation \&
+  Gaming}, 34(3), pp. 437--446.
+
+\bibitem[Sum04]{summers}
+Summers, G.J. (2004) Today’s business simulation industry. \emph{Simulation
+  \& Gaming}, 35(2), pp. 208--241.
+
+\bibitem[Tan08]{ybg1}
+Tanabu, M. (2008) Facilitating business gaming simulation modeling.
+  \emph{Developments in Business Simulation and Experiential Learning}, 35, pp.
+  360--367.
+
+\bibitem[Tan11]{japanisch}
+Tanabu, M. (2011) Design and implementation of a language for business
+  simulation games (japanese). \emph{Yokohama Business Review}, 32(2), pp.
+  267--292, \urlprefix\url{http://ci.nii.ac.jp/naid/40019252737/en/}.
+
+\bibitem[TS10]{ybg2}
+Tanabu, M. and Shirai, H. (2010) {A Platform for Business Games - From Game
+  Playing to Game Making: The Case of Yokohama National University}.
+  \emph{Developments in Business Simulation and Experiential Learning}, 37.
+
+\bibitem[TSK{\etalchar{+}}99]{bmdl2}
+Terano, T., Suzuki, H., Kuno, Y., Fujimori, H., Shirai, H., Nishio, C., Ogura,
+  N., and Takahuashi, M. (1999) Understanding your business through home-made
+  simulator development. \emph{Developments in Business Simulation and
+  Experiential Learning}, 26,
+  \urlprefix\url{https://journals.tdl.org/absel/index.php/absel/article/view/930/899}.
+
+\bibitem[TTK{\etalchar{+}}02]{bmdl1}
+Tsuda, K., Terano, T., Kuno, Y., Shirai, H., and Suzuki, H. (2002) A compiler
+  for business simulations: Toward business model development by yourselves.
+  \emph{Information Sciences}, 143(1), pp. 99--114.
+
+\bibitem[US14]{uskov_serious_2014}
+Uskov, A. and Sekar, B. (2014) {Serious games, gamification and game engines to
+  support framework activities in engineering: {Case} studies, analysis,
+  classifications and outcomes}. In \emph{2014 {IEEE} {International}
+  {Conference} on {Electro}/{Information} {Technology} ({EIT})}, pp. 618--623.
+
+\bibitem[Wol93]{wolfe93}
+Wolfe, J. (1993) {A History of Business Teaching Games in English-speaking and
+  Post-socialist Countries: The Origination and Diffusion of a Management
+  Education and Development Technology}. \emph{Simulation \& Gaming}, 24(4),
+  pp. 446--463, \urlprefix\url{http://dx.doi.org/10.1177/1046878193244003}.
+
+\bibitem[YTT09]{bmdsinvest}
+Yamashita, Y., Takahashi, H., and Terano, T. (2009) Learning a selection
+  problem of investment projects and capital structure through business game.
+  In \emph{New Advances in Intelligent Decision Technologies}, pp. 41--50,
+  Springer.
+
+\end{thebibliography}

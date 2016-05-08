@@ -1,0 +1,74 @@
+This is BibTeX, Version 0.99d (TeX Live 2013/Debian)
+Capacity: max_strings=35307, hash_size=35307, hash_prime=30011
+The top-level auxiliary file: thesis.aux
+A level-1 auxiliary file: em_includes/titlepage_en.aux
+A level-1 auxiliary file: em_includes/declaration_de.aux
+A level-1 auxiliary file: ack.aux
+A level-1 auxiliary file: 1-intro.aux
+A level-1 auxiliary file: 2-related.aux
+A level-1 auxiliary file: 3-class.aux
+A level-1 auxiliary file: 4-architecture.aux
+A level-1 auxiliary file: 5-implementation.aux
+A level-1 auxiliary file: 6-conclusion.aux
+A level-1 auxiliary file: schnuck.aux
+A level-1 auxiliary file: beergame.aux
+The style file: em_includes/emalphen.bst
+Database file #1: literature.bib
+Repeated entry---line 129 of file literature.bib
+ : @article{ybg1
+ :              ,
+I'm skipping whatever remains of this entry
+You're missing a field name---line 295 of file literature.bib
+ :   
+ :   %note = "[Online; accessed 03-March-2015]"
+(Error may have been on previous line)
+I'm skipping whatever remains of this entry
+Repeated entry---line 317 of file literature.bib
+ : @article{greco
+ :               ,
+I'm skipping whatever remains of this entry
+A bad cross reference---entry "saltseller"
+refers to entry "DBLP:conf/icete/2015", which doesn't exist
+Reallocated wiz_functions (elt_size=4) to 6000 items from 3000.
+You've used 37 entries,
+            3450 wiz_defined-function locations,
+            943 strings with 12410 characters,
+and the built_in function-call counts, 21736 in all, are:
+= -- 1790
+> -- 677
+< -- 44
++ -- 228
+- -- 225
+* -- 1466
+:= -- 2677
+add.period$ -- 74
+call.type$ -- 37
+change.case$ -- 249
+chr.to.int$ -- 37
+cite$ -- 37
+duplicate$ -- 1924
+empty$ -- 1939
+format.name$ -- 293
+if$ -- 4709
+int.to.chr$ -- 1
+int.to.str$ -- 0
+missing$ -- 356
+newline$ -- 119
+num.names$ -- 111
+pop$ -- 651
+preamble$ -- 1
+purify$ -- 272
+quote$ -- 0
+skip$ -- 846
+stack$ -- 0
+substring$ -- 1030
+swap$ -- 1044
+text.length$ -- 44
+text.prefix$ -- 17
+top$ -- 0
+type$ -- 280
+warning$ -- 0
+while$ -- 171
+width$ -- 39
+write$ -- 348
+(There were 4 error messages)
