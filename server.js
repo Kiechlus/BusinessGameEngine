@@ -1,13 +1,13 @@
 "use strict";
-    // Wraps the http server, handles routing
+// Wraps the http server, handles routing
 var express = require("express"),
     app = express(),
     server = require("http").Server(app),
-    // Implementation of the WebSocket protocol
-    // Pass server to create instance of Socket.IO
+// Implementation of the WebSocket protocol
+// Pass server to create instance of Socket.IO
     io = require("socket.io")(server),
     dbConnector = require("./db/connectionHandler"),
-    // Implements the application logic
+// Implements the application logic
     GameControler = require("./GameControler"),
     bodyParser = require('body-parser'),
     csrf = require('csurf'),
@@ -57,15 +57,15 @@ function connectionCallback(err, db) {
 }
 
 app.use(cookieParser());
-app.use(csrf({ cookie: true }));
-app.use( bodyParser.json() );       // to support JSON-encoded bodies
+app.use(csrf({cookie: true}));
+app.use(bodyParser.json());       // to support JSON-encoded bodies
 app.use(bodyParser.urlencoded({     // to support URL-encoded bodies
-  extended: true
+    extended: true
 }));
 
 /*
-Routing
-*/
+ Routing
+ */
 
 app.use(express.static(__dirname + "/public"));
 // Index.html (Home) in /public wird automatisch geladen.
@@ -80,8 +80,8 @@ app.enable('trust proxy');
 
 // startpage
 app.get("/", function (req, res) {
-	// render games.jade in the /views folder. This injects the CSRF token into the html.
-    res.render("games", {token: req.csrfToken()}); 
+    // render games.jade in the /views folder. This injects the CSRF token into the html.
+    res.render("games", {token: req.csrfToken()});
 });
 
 app.get("/create", function (req, res) {
@@ -93,14 +93,14 @@ app.get("/edit/", function (req, res) {
 });
 
 app.get("/show/", function (req, res) {
-	res.sendFile(__dirname + "/public/show.html");
+    res.sendFile(__dirname + "/public/show.html");
 });
 
 app.get("/simulate", function (req, res) {
-	res.sendFile(__dirname + "/public/simulate.html");
+    res.sendFile(__dirname + "/public/simulate.html");
 });
 app.get("/play", function (req, res) {
-	res.sendFile(__dirname + "/public/play.html");
+    res.sendFile(__dirname + "/public/play.html");
 });
 app.get("/analyse", function (req, res) {
     var params = url.parse(req.url, true);
@@ -110,7 +110,7 @@ app.get("/analyse", function (req, res) {
     function findCallback(err, data) {
         if (err) {
             console.error(err);
-        } 
+        }
         else if (data) {
             res.setHeader('Content-disposition', 'attachment; filename=gameData.json');
             res.set('Content-Type', 'text/csv');
@@ -119,6 +119,8 @@ app.get("/analyse", function (req, res) {
     }
 });
 app.get("/docu", function (req, res) {
+    const bots = ['Bingbot', 'Googlebot', 'Yandex', 'Baidu'];
+    let isBot = false;
     const details = {};
     details.timestamp = new Date();
     details.host = req.get('host');
@@ -126,11 +128,16 @@ app.get("/docu", function (req, res) {
     details.userIp = req.socket.remoteAddress;
     details.origin = req.get('origin');
     details.headers = req.headers;
-    database.collection('logs').update( {type: 'global'}, { $inc : { "docuCounter" : 1 } });
-    if (req.headers['user-agent'].match('Googlebot')) {
+    database.collection('logs').update({type: 'global'}, {$inc: {"docuCounter": 1}});
+    bots.map(bot=> {
+        if (req.headers['user-agent'].match(new RegExp(bot, 'i'))) {
+            isBot = true;
+        }
+    });
+    if (isBot) {
         details.type = 'robot';
         database.collection('logs').insert(details);
-        database.collection('logs').update( {type: 'global'}, { $inc : { "docuRobotCounter" : 1 } });
+        database.collection('logs').update({type: 'global'}, {$inc: {"docuRobotCounter": 1}});
     } else {
         details.type = 'normal';
         database.collection('logs').insert(details);
@@ -140,7 +147,7 @@ app.get("/docu", function (req, res) {
 });
 
 app.get("/docuPdf", function (req, res) {
-    database.collection('logs').update( {type: 'global'}, { $inc : { "docuPdfCounter" : 1 } });
+    database.collection('logs').update({type: 'global'}, {$inc: {"docuPdfCounter": 1}});
     res.download(__dirname + '/public/files/Thesis_160111.pdf', 'Documentation.pdf');
 });
 
@@ -168,7 +175,7 @@ app.get("/getCode", function (req, res) {
                 }
                 // TODO: If you need to respond with data, instead use methods such as res.send() and res.json().
                 res.setHeader("Content-Type", "application/json");
-                res.end(JSON.stringify(response)); 
+                res.end(JSON.stringify(response));
             }
         }
     }
@@ -192,7 +199,7 @@ app.get("/gameList", function (req, res) {
         } else {
             gameList = data;
             res.setHeader("Content-Type", "application/json");
-            res.end(JSON.stringify(gameList)); 
+            res.end(JSON.stringify(gameList));
         }
     }
 });
@@ -212,10 +219,10 @@ app.post("/delete", function (req, res) {
     controler.dbf.getGamePassword(gamesCollection, name, pwCallback);
     function pwCallback(err, passwordObject) {
         if (err) {
-            console.error (err);
+            console.error(err);
         } else {
             // password the user entered
-            var password = req.body.password; 
+            var password = req.body.password;
             // check if password hashes match
             if (passwordObject && password === passwordObject.password && typeof name === "string") {
                 var response = {
@@ -291,8 +298,8 @@ app.post("/code", function (req, res) {
     // comes from gameValidation:
     if (!response.errors) {
         if (edit) {
-            gamesCollection.update({'name': name},{$set:{'gameCode': code}}, updateCallback);
-            
+            gamesCollection.update({'name': name}, {$set: {'gameCode': code}}, updateCallback);
+
         } else {
             controler.dbf.uniqueGameName(name, gamesCollection, uniqueCallback);
         }
@@ -303,15 +310,16 @@ app.post("/code", function (req, res) {
         }
         else if (result === false) {
             response.errors = "A game with the name of " + name + " already exists in the database. Game names must be unique.";
-            res.setHeader("Content-Type", "application/json"); 
+            res.setHeader("Content-Type", "application/json");
             res.send(JSON.stringify(response));
-        } 
-        else { 
+        }
+        else {
             saveGameObject.password = password;
             // save game to database
             controler.dbf.insert(gamesCollection, saveGameObject, saveCallback);
         }
     }
+
     function updateCallback(err) {
         if (err) {
             console.error(err);
@@ -322,6 +330,7 @@ app.post("/code", function (req, res) {
         res.setHeader("Content-Type", "application/json");
         res.send(JSON.stringify(response));
     }
+
     function saveCallback(err, data) {
         if (err) {
             console.error(err);
@@ -329,18 +338,18 @@ app.post("/code", function (req, res) {
         } else {
             console.log(new Date() + ": " + name + " saved successfully");
         }
-        res.setHeader("Content-Type", "application/json"); 
+        res.setHeader("Content-Type", "application/json");
         res.send(JSON.stringify(response));
     }
 });
 
 // CSRF error handling
 app.use(function (err, req, res, next) {
-    
+
     if (err.code !== 'EBADCSRFTOKEN') return next(err)
 
     // handle CSRF token errors here
-    console.log(Date()+"csrf attack detected");
+    console.log(Date() + "csrf attack detected");
     res.status(403);
     res.send('permission denied');
 });
