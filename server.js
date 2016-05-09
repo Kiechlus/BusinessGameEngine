@@ -129,7 +129,7 @@ app.get("/docuPdf", function (req, res) {
     res.download(__dirname + '/public/files/Thesis_160111.pdf', 'Documentation.pdf');
 });
 
-app.get("/docu/googlec9f521b773a8e6db.html ", function (req, res) {
+app.get("/docu/googlec9f521b773a8e6db.html", function (req, res) {
     res.sendFile(__dirname + "/thesis/googlec9f521b773a8e6db.html");
 });
 
