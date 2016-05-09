@@ -744,7 +744,7 @@ YBG was carried on for several years with a first release of YBG1.0 in 2002 and 
 YBG2007 in 2007. Many games exist for the YBG platform and it is, or has been used
 in 70 universities including universities in the US, China and France. A public game
 server<span class="footnote-mark"><a 
-href="thesis2.html#fn1x2"><sup class="textsuperscript">1</sup></a></span><a 
+href="thesis/thesis2.html#fn1x2"><sup class="textsuperscript">1</sup></a></span><a
  id="x1-13001f1"></a> 
 is available in Japanese language <span class="cite">[<a 
 href="#Xybg1">Tan08</a>,&#x00A0;<a 
@@ -3048,12 +3048,12 @@ href="#x1-370004.2.1.3">4.2.1.3<!--tex4ht:ref: subsub:score --></a>. Write these
       in general from using the Javascript console in order to debug into the calculation
       process and check variable values. Client-side code can be rendered unreadable using
       code obfuscators<span class="footnote-mark"><a 
-href="thesis3.html#fn1x4"><sup class="textsuperscript">1</sup></a></span><a 
+href="thesis/thesis3.html#fn1x4"><sup class="textsuperscript">1</sup></a></span><a
  id="x1-57013f1"></a> .
       A BGE implementation is a big project, even an experienced Javascript developer
       would need a long time to find the calculation process in such an obfuscated code.
       Additionally, techniques exist to completely disable the User&#8217;s Javascript console<span class="footnote-mark"><a 
-href="thesis4.html#fn2x4"><sup class="textsuperscript">2</sup></a></span><a 
+href="thesis/thesis4.html#fn2x4"><sup class="textsuperscript">2</sup></a></span><a
  id="x1-57014f2"></a> .
       </li>
       <li 
@@ -3259,7 +3259,7 @@ explicitly prepared for it.
                                                                                          
 <!--l. 68--><p class="noindent" >For that reason the protocol specifies an URI-based addressing
 mechanism<span class="footnote-mark"><a 
-href="thesis5.html#fn1x5"><sup class="textsuperscript">1</sup></a></span><a 
+href="thesis/thesis5.html#fn1x5"><sup class="textsuperscript">1</sup></a></span><a
  id="x1-61001f1"></a> ,
 for example <span 
 class="ecti-1200">wss://server.example.com/secureChat</span>. Therefore, a WebSocket connection is identified
@@ -3303,10 +3303,10 @@ prevents an attacker to send a message over another protocol as e.g. HTTP that l
 like a WebSocket message [Ibid.]. It also prevents from tricking non-WebSocket servers
 to echo a valid WebSocket handshake response in order to establish an unauthorised
 connection<span class="footnote-mark"><a 
-href="thesis6.html#fn2x5"><sup class="textsuperscript">2</sup></a></span><a 
+href="thesis/thesis6.html#fn2x5"><sup class="textsuperscript">2</sup></a></span><a
  id="x1-61002f2"></a> 
 <span class="footnote-mark"><a 
-href="thesis7.html#fn3x5"><sup class="textsuperscript">3</sup></a></span><a 
+href="thesis/thesis7.html#fn3x5"><sup class="textsuperscript">3</sup></a></span><a
  id="x1-61003f3"></a>.
                                                                                          
                                                                                          
@@ -3352,13 +3352,14 @@ AJAX call, or when waiting for an user interaction or setting a timeout, JavaScr
 the process and does not wait for the operation to complete, but continues to run other code that
 follows next. As soon as the server delivers the content or the user clicks a button or the timer has
 run down, the code associated with the operation is executed. Listing <a 
-href="#x1-63001r1">5.1<!--tex4ht:ref: lst:javascript --></a> demonstrates this
+href="#listing-1">5.1<!--tex4ht:ref: lst:javascript --></a> demonstrates this
 behaviour for a programme that asynchronously fetches the HTML content of a website using the
 jQuery library.
 <!--l. 91-->
-                                                                                         
-                                                                                         
-<a 
+      <!--href="#x1-63001r1">5.1&lt;!&ndash;tex4ht:ref: lst:javascript &ndash;&gt;</a> demonstrates this-->
+
+
+<a
  id="x1-63002"></a>
  <br /> <div class="caption" 
 ><span class="id">Listing&#x00A0;5.1: </span><span  
@@ -3496,7 +3497,7 @@ programme would wait for the response from the requested website and then print 
 content on the standard output. After that it would start calculating Pi and finally
 print <span 
 class="ecti-1200">Done. Pi = 3,14... </span>Hovewer, the JavaScript programme from listing <a 
-href="#x1-63001r1">5.1<!--tex4ht:ref: lst:javascript --></a> behaves
+href="#listing-1">5.1<!--tex4ht:ref: lst:javascript --></a> behaves
 differently. In the first line, the HTTP GET request function gets executed with a callback
 function passed to it as second parameter. Next, the calculation of Pi is immediately
 started, without waiting for the network to respond. <span 
@@ -3508,17 +3509,17 @@ responds.
 <!--l. 101--><p class="noindent" >The JavaScript engine achieves this non-blocking behaviour for I/O and other asynchronous operations
 using a call stack (also referred to as execution stack or just stack), a message queue and an event
 loop<span class="footnote-mark"><a 
-href="thesis8.html#fn4x5"><sup class="textsuperscript">4</sup></a></span><a 
+href="thesis/thesis8.html#fn4x5"><sup class="textsuperscript">4</sup></a></span><a
  id="x1-63009f4"></a> 
 <span class="footnote-mark"><a 
-href="thesis9.html#fn5x5"><sup class="textsuperscript">5</sup></a></span><a 
+href="thesis/thesis9.html#fn5x5"><sup class="textsuperscript">5</sup></a></span><a
  id="x1-63010f5"></a>.
 Messages (events) with an associated callback function get enqueued in response to external
 events, such as a user clicking a button or a response arriving from a HTTP request. The event
 loop continuously polls the queue for the next message and puts the associated callback function
 on the call stack if and only if it finds the stack empty.
 <!--l. 103--><p class="noindent" >Running the file<span class="footnote-mark"><a 
-href="thesis10.html#fn6x5"><sup class="textsuperscript">6</sup></a></span><a 
+href="thesis/thesis10.html#fn6x5"><sup class="textsuperscript">6</sup></a></span><a
  id="x1-63011f6"></a> 
 containing the example above, the first function to be put on the call stack is an implicit <span 
 class="ecti-1200">eval()</span>
@@ -3532,10 +3533,10 @@ class="ecti-1200">send() </span>functions from the browser-dependant implementat
                                                                                          
                                                                                          
 XMLHttpRequest<span class="footnote-mark"><a 
-href="thesis11.html#fn7x5"><sup class="textsuperscript">7</sup></a></span><a 
+href="thesis/thesis11.html#fn7x5"><sup class="textsuperscript">7</sup></a></span><a
  id="x1-63012f7"></a> 
 Web API<span class="footnote-mark"><a 
-href="thesis12.html#fn8x5"><sup class="textsuperscript">8</sup></a></span><a 
+href="thesis/thesis12.html#fn8x5"><sup class="textsuperscript">8</sup></a></span><a
  id="x1-63013f8"></a> ,
 which is typically implemented in C(++) as part of the browser&#8217;s rendering engine
 and which runs separated from the JavaScript engine in another thread of the browser
@@ -3567,7 +3568,7 @@ output.
 deployment on server-side is quite new. Ryan Dahl introduced Node.js in 2009
 as a "purely evented, non-blocking infrastructure to script highly concurrent
 programs"<span class="footnote-mark"><a 
-href="thesis13.html#fn9x5"><sup class="textsuperscript">9</sup></a></span><a 
+href="thesis/thesis13.html#fn9x5"><sup class="textsuperscript">9</sup></a></span><a
  id="x1-64001f9"></a> .
 Thus, the main idea behind Node.js is to provide the programmer with a server-side environment
 where all I/O (file system, network, IPC, timers...) can only be done in a non-blocking,
@@ -3592,7 +3593,7 @@ can serve a lot of concurrent connections. The developer need not be experienced
 of its function calls have disappeared from the stack before another one is polled by the
 event loop. It can thus be used to create efficient applications with comparably little
 effort. Certainly, CPU-intensive tasks such as the calculation of Pi in listing <a 
-href="#x1-63001r1">5.1<!--tex4ht:ref: lst:javascript --></a> block
+href="#listing-1">5.1<!--tex4ht:ref: lst:javascript --></a> block
 such a single-threaded setting and must be either avoided or additional child processes
 or clusters must be spawned <span class="cite">[<a 
 href="#Xnodedoc">Nod15</a>]</span>, which might make implementations again more
@@ -3617,7 +3618,7 @@ class="content">Node.js architecture overview. Source: stackoverflow.com/questio
 <!--l. 123--><p class="noindent" >Figure <a 
 href="#x1-64002r2">5.2<!--tex4ht:ref: fig:node --></a> shows an overview of the architecture of Node.js. The
 API<span class="footnote-mark"><a 
-href="thesis14.html#fn10x5"><sup class="textsuperscript">10</sup></a></span><a 
+href="thesis/thesis14.html#fn10x5"><sup class="textsuperscript">10</sup></a></span><a
  id="x1-64003f10"></a> 
 (Standard Library) of Node.js is written in JavaScript and enables the programmer among others
 to access lower level functionality of the operating system via JavaScript. It is split into different
@@ -3626,7 +3627,7 @@ access, Processes, Buffers, Streams, Events and more. Apart from the core module
 programmer can import from a large number of other open-source modules via the node
 package manager (NPM), which has grown the world&#8217;s largest ecosystem for open-source
 libraries<span class="footnote-mark"><a 
-href="thesis15.html#fn11x5"><sup class="textsuperscript">11</sup></a></span><a 
+href="thesis/thesis15.html#fn11x5"><sup class="textsuperscript">11</sup></a></span><a
  id="x1-64004f11"></a> .
 <!--l. 125--><p class="noindent" >All other parts than Node&#8217;s API are written in C or in C++. Node.js is built upon
 Google&#8217;s JavaScript engine V8. One one hand, V8 is responsible for parsing the
@@ -3635,7 +3636,7 @@ V8 provides the Runtime environment, bridging native C++ functions and objects
 into JavaScript objects. Like this, it is possible to "wrap C++ functions and data
 structures within JavaScript objects so that they can be manipulated by JavaScript
 scripts"<span class="footnote-mark"><a 
-href="thesis16.html#fn12x5"><sup class="textsuperscript">12</sup></a></span><a 
+href="thesis/thesis16.html#fn12x5"><sup class="textsuperscript">12</sup></a></span><a
  id="x1-64005f12"></a> .
 Node.js uses V8 Object and Function Templates to achieve this behaviour. Browsers using V8
 apply the same concept in order to expose native implementations of DOM, XMLHttpRequest or
@@ -3658,18 +3659,18 @@ blocking, while it might be blocking or non blocking in Windows, using a differe
                                                                                          
                                                                                          
 mechanism<span class="footnote-mark"><a 
-href="thesis17.html#fn13x5"><sup class="textsuperscript">13</sup></a></span><a 
+href="thesis/thesis17.html#fn13x5"><sup class="textsuperscript">13</sup></a></span><a
  id="x1-64006f13"></a> .
 For asynchronous operations on network sockets, different operating systems provide different system
 calls<span class="footnote-mark"><a 
-href="thesis18.html#fn14x5"><sup class="textsuperscript">14</sup></a></span><a 
+href="thesis/thesis18.html#fn14x5"><sup class="textsuperscript">14</sup></a></span><a
  id="x1-64007f14"></a> .
 Node.js and other projects use the C-library <span 
 class="ecti-1200">Libuv </span>in order to realise asynchronous,
 non-blocking I/O on all major operating systems. It implements an event loop and
 uses the same callback pattern as JavaScript in order to notify about an incoming
 event<span class="footnote-mark"><a 
-href="thesis19.html#fn15x5"><sup class="textsuperscript">15</sup></a></span><a 
+href="thesis/thesis19.html#fn15x5"><sup class="textsuperscript">15</sup></a></span><a
  id="x1-64008f15"></a> 
 as well as in order to specify the application logic connected to that certain event. Libuv was
 created as part of the Node.js project as a replacement for <span 
@@ -3680,7 +3681,7 @@ provides for each different type of I/O. When there is no such functionality at 
 with file system I/O in UNIX, Libuv uses a thread pool in order to emulate non-blocking
 behaviour.
 <!--l. 131--><p class="noindent" >An example: Listing <a 
-href="#x1-64011r2">5.2<!--tex4ht:ref: lst:libuv --></a> shows a simple program that asynchronously reads from a file on the file
+href="#listing-2">5.2<!--tex4ht:ref: lst:libuv --></a> shows a simple program that asynchronously reads from a file on the file
 system, calling Libuv&#8217;s <span 
 class="ecti-1200">uv_fs_open() </span>and <span 
 class="ecti-1200">uv_fs_read() </span>functions. Both functions are passed
@@ -3698,7 +3699,7 @@ class="description">The <span
 class="ecti-1200">uv_fs_open() </span>call is also passed a path to the file to be opened. Libuv then calls
       the <span 
 class="ecti-1200">open()</span><span class="footnote-mark"><a 
-href="thesis20.html#fn16x5"><sup class="textsuperscript">16</sup></a></span><a 
+href="thesis/thesis20.html#fn16x5"><sup class="textsuperscript">16</sup></a></span><a
  id="x1-64009f16"></a> 
       facility of the operating system the example program is executed on. If this can be done
       only in a blocking way, such as on UNIX, Libuv gives this task to a thread pool. Many
@@ -3718,7 +3719,7 @@ class="ecti-1200">read()</span>
                                                                                          
                                                                                          
       system call<span class="footnote-mark"><a 
-href="thesis21.html#fn17x5"><sup class="textsuperscript">17</sup></a></span><a 
+href="thesis/thesis21.html#fn17x5"><sup class="textsuperscript">17</sup></a></span><a
  id="x1-64010f17"></a> ,
       which writes into the buffer. Again, a thread pool is used if necessary. After the data
       has been read, Libuv writes the number of read bytes to the request object and calls
@@ -3726,7 +3727,7 @@ href="thesis21.html#fn17x5"><sup class="textsuperscript">17</sup></a></span><a
 class="ecti-1200">on_read </span>with the request object as parameter.</dd></dl>
 <!--l. 137--><p class="noindent" >The event loop and thus a whole Libuv program run as long as there are events to watch out for.
 The simple example program from listing <a 
-href="#x1-64011r2">5.2<!--tex4ht:ref: lst:libuv --></a> terminates after the open and read have finished.
+href="#listing-2">5.2<!--tex4ht:ref: lst:libuv --></a> terminates after the open and read have finished.
 This is described by the two short-lived request objects that preserve the context between start
 and end of the asynchronous operations. In more elaborate examples, a request represents an
 asynchronous operation on a long-lived <span 
@@ -4087,9 +4088,9 @@ class="ectt-1000">}</span>
 <!--l. 163--><p class="noindent" >Recalling figure <a 
 href="#x1-64002r2">5.2<!--tex4ht:ref: fig:node --></a>, how is Libuv to be integrated into the architecture of Node.js? The Node
 Bindings embed V8 and use it to expose Libuv&#8217;s functionality to the JavaScript API. Listing <a 
-href="#x1-64035r3">5.3<!--tex4ht:ref: lst:node --></a>
+href="#listing-3">5.3<!--tex4ht:ref: lst:node --></a>
 translates the C-program from listing <a 
-href="#x1-64011r2">5.2<!--tex4ht:ref: lst:libuv --></a> into a (ES6) JavaScript program. After saving its content
+href="#listing-2">5.2<!--tex4ht:ref: lst:libuv --></a> into a (ES6) JavaScript program. After saving its content
 to a file named for example <span 
 class="ecti-1200">readfile.js</span>, the program can be executed with the command <span 
 class="ecti-1200">node</span>
@@ -4103,7 +4104,7 @@ class="ecti-1200">readfile.js /path/to/file</span>. This will
       <li class="itemize">expose this object with V8 as the blueprint for the global <span 
 class="ecti-1200">process </span>object of the Node
       API<span class="footnote-mark"><a 
-href="thesis22.html#fn18x5"><sup class="textsuperscript">18</sup></a></span><a 
+href="thesis/thesis22.html#fn18x5"><sup class="textsuperscript">18</sup></a></span><a
  id="x1-64034f18"></a> ,
       </li>
       <li class="itemize">additionally add a function called <span 
@@ -4431,17 +4432,17 @@ class="content">BGE architecture: Two event loops and WebSockets.</span></div><!
 technology for the implementation of BGE. The WebSocket library
 <span 
 class="ecti-1200">Socket.io</span><span class="footnote-mark"><a 
-href="thesis23.html#fn19x5"><sup class="textsuperscript">19</sup></a></span><a 
+href="thesis/thesis23.html#fn19x5"><sup class="textsuperscript">19</sup></a></span><a
  id="x1-65002f19"></a> 
 is very easy to use and drastically simplifies realtime synchronizations
 between server and clients. The web server realised with the framework
 <span 
 class="ecti-1200">Express</span><span class="footnote-mark"><a 
-href="thesis24.html#fn20x5"><sup class="textsuperscript">20</sup></a></span><a 
+href="thesis/thesis24.html#fn20x5"><sup class="textsuperscript">20</sup></a></span><a
  id="x1-65003f20"></a>  in combination with
 the command-line tool <span 
 class="ecti-1200">forever</span><span class="footnote-mark"><a 
-href="thesis25.html#fn21x5"><sup class="textsuperscript">21</sup></a></span><a 
+href="thesis/thesis25.html#fn21x5"><sup class="textsuperscript">21</sup></a></span><a
  id="x1-65004f21"></a> 
 proved to be sufficient for setting up and maintaining the architecture on a Linux server with very
 limited physical resources.
@@ -4521,24 +4522,24 @@ databases, are a rather young technology. Their main idea is to save documents s
                                                                                          
                                                                                          
 YAML<span class="footnote-mark"><a 
-href="thesis26.html#fn22x5"><sup class="textsuperscript">22</sup></a></span><a 
+href="thesis/thesis26.html#fn22x5"><sup class="textsuperscript">22</sup></a></span><a
  id="x1-66001f22"></a> ,
 XML or JSON directly without an additional mapping. Since they are quite new, their query
 languages are not standardised. Each NoSQL database comes with its own query syntax which
 must be learned by developers or data analysts and which may support more or less
 features.
 <!--l. 229--><p class="noindent" >MongoDB<span class="footnote-mark"><a 
-href="thesis27.html#fn23x5"><sup class="textsuperscript">23</sup></a></span><a 
+href="thesis/thesis27.html#fn23x5"><sup class="textsuperscript">23</sup></a></span><a
  id="x1-66002f23"></a> 
 was one of the first document-oriented databases to arise. It is said to have a rich query
 language<span class="footnote-mark"><a 
-href="thesis28.html#fn24x5"><sup class="textsuperscript">24</sup></a></span><a 
+href="thesis/thesis28.html#fn24x5"><sup class="textsuperscript">24</sup></a></span><a
  id="x1-66003f24"></a>  and a
 big community<span class="footnote-mark"><a 
-href="thesis29.html#fn25x5"><sup class="textsuperscript">25</sup></a></span><a 
+href="thesis/thesis29.html#fn25x5"><sup class="textsuperscript">25</sup></a></span><a
  id="x1-66004f25"></a> 
 <span class="footnote-mark"><a 
-href="thesis30.html#fn26x5"><sup class="textsuperscript">26</sup></a></span><a 
+href="thesis/thesis30.html#fn26x5"><sup class="textsuperscript">26</sup></a></span><a
  id="x1-66005f26"></a>. A
 rich query language means that subsets of the stored data can be retrieved based on various
 different query criteria. A large community signifies that many online resources such
@@ -4559,7 +4560,7 @@ By default, MongoDB only guarantees write operations on a single document to be
                                                                                          
                                                                                          
 atomic<span class="footnote-mark"><a 
-href="thesis31.html#fn27x5"><sup class="textsuperscript">27</sup></a></span><a 
+href="thesis/thesis31.html#fn27x5"><sup class="textsuperscript">27</sup></a></span><a
  id="x1-66006f27"></a> .
 Thus, there are several possibilities how concurrent transactions might run into race conditions, if
 not prevented by a proper implementation. A series of read and write (depending on what has
@@ -4569,7 +4570,7 @@ can be seen as the equivalent of a table in a relational database. MongoDB provi
 functionality and design patterns such as <span 
 class="ecti-1200">findAndModify()</span>, embedded documents or
 isolation<span class="footnote-mark"><a 
-href="thesis32.html#fn28x5"><sup class="textsuperscript">28</sup></a></span><a 
+href="thesis/thesis32.html#fn28x5"><sup class="textsuperscript">28</sup></a></span><a
  id="x1-66007f28"></a> 
 in order to avoid race conditions. However, unlike with RDBMSs, this must be taken care off
 by the developer on the application level. In the assessment of a database technology
@@ -4672,17 +4673,17 @@ class="content">Editor and feedback screen module</span></div><!--tex4ht:label?:
 <!--l. 268--><p class="noindent" >The editor is based on the open-source Eclipse project
 <span 
 class="ecti-1200">Orion</span><span class="footnote-mark"><a 
-href="thesis33.html#fn29x5"><sup class="textsuperscript">29</sup></a></span><a 
+href="thesis/thesis33.html#fn29x5"><sup class="textsuperscript">29</sup></a></span><a
  id="x1-69002f29"></a>  which
 aims to create a browser based integrated development environment (IDE). It uses the open-source JavaScript
 parser <span 
 class="ecti-1200">Esprima</span><span class="footnote-mark"><a 
-href="thesis34.html#fn30x5"><sup class="textsuperscript">30</sup></a></span><a 
+href="thesis/thesis34.html#fn30x5"><sup class="textsuperscript">30</sup></a></span><a
  id="x1-69003f30"></a> 
 for the syntax analysis of the game code. Esprima is furthermore used together with the <span 
 class="ecti-1200">escodegen</span>
 project<span class="footnote-mark"><a 
-href="thesis35.html#fn31x5"><sup class="textsuperscript">31</sup></a></span><a 
+href="thesis/thesis35.html#fn31x5"><sup class="textsuperscript">31</sup></a></span><a
  id="x1-69004f31"></a> 
 for reformatting the source code after loading it from the database (show or edit). Reformatting is
 also used for the presentation of simulation results.
@@ -4715,7 +4716,7 @@ submitted for the rounds to come in order to allow the other players to continue
 game.
 <!--l. 277--><p class="noindent" >This implementation of the game engine module uses Google
 Charts<span class="footnote-mark"><a 
-href="thesis36.html#fn32x5"><sup class="textsuperscript">32</sup></a></span><a 
+href="thesis/thesis36.html#fn32x5"><sup class="textsuperscript">32</sup></a></span><a
  id="x1-70001f32"></a> 
 for rendering Chart objects. Figure <a 
 href="#x1-70003r6">5.6<!--tex4ht:ref: fig:play --></a> shows an example game session of the <span 
@@ -5065,18 +5066,18 @@ class="ecti-1200">localhost:3000</span></li></ul>
 the installation guidelines. Then:
       <ul class="itemize1">
       <li class="itemize">use supervisor<span class="footnote-mark"><a 
-href="thesis37.html#fn33x5"><sup class="textsuperscript">33</sup></a></span><a 
+href="thesis/thesis37.html#fn33x5"><sup class="textsuperscript">33</sup></a></span><a
  id="x1-77001f33"></a> 
       or forever<span class="footnote-mark"><a 
-href="thesis38.html#fn34x5"><sup class="textsuperscript">34</sup></a></span><a 
+href="thesis/thesis38.html#fn34x5"><sup class="textsuperscript">34</sup></a></span><a
  id="x1-77002f34"></a> 
       or pm2 to watch the server process and keep it alive
       </li>
       <li class="itemize">redirect all incoming traffic to e.g. port 3000 so that node need not run with privileges<span class="footnote-mark"><a 
-href="thesis39.html#fn35x5"><sup class="textsuperscript">35</sup></a></span><a 
+href="thesis/thesis39.html#fn35x5"><sup class="textsuperscript">35</sup></a></span><a
  id="x1-77003f35"></a> 
       <span class="footnote-mark"><a 
-href="thesis40.html#fn36x5"><sup class="textsuperscript">36</sup></a></span><a 
+href="thesis/thesis40.html#fn36x5"><sup class="textsuperscript">36</sup></a></span><a
  id="x1-77004f36"></a>
       </li>
       <li class="itemize">more professional setups might consider Jenkins: <span 
@@ -5198,7 +5199,7 @@ complete information about that variable. A chart furthermore only visualises on
 time. Rendering output as tables might be used to address both issues, enabling incomplete
 information as well as displaying related things in one place.
 <!--l. 55--><p class="noindent" >Listing <a 
-href="#x1-84001r1">6.1<!--tex4ht:ref: lst:table --></a> shows how table-based output could be realised in the BGD game code using the
+href="#listing-4">6.1<!--tex4ht:ref: lst:table --></a> shows how table-based output could be realised in the BGD game code using the
 example of the order input variable in the beergame which should have incomplete
 information.
 <!--l. 57-->
