@@ -117,6 +117,9 @@ app.get("/analyse", function (req, res) {
 });
 app.get("/docu", function (req, res) {
     database.collection('logs').update( {}, { $inc : { "docuCounter" : 1 } });
+    if (req.headers['user-agent'].match('Googlebot')) {
+        database.collection('logs').update( {}, { $inc : { "docuGoogleBot" : 1 } });
+    }
     res.sendFile(__dirname + "/thesis/thesis.html");
     //res.download(__dirname + '/public/files/Thesis_160111.pdf', 'Documentation.pdf');
 });
@@ -124,6 +127,10 @@ app.get("/docu", function (req, res) {
 app.get("/docuPdf", function (req, res) {
     database.collection('logs').update( {}, { $inc : { "docuPdfCounter" : 1 } });
     res.download(__dirname + '/public/files/Thesis_160111.pdf', 'Documentation.pdf');
+});
+
+app.get("/docu/googlec9f521b773a8e6db.html ", function (req, res) {
+    res.sendFile(__dirname + "/thesis/googlec9f521b773a8e6db.html");
 });
 
 
