@@ -75,6 +75,9 @@ app.use("/files", express.static(__dirname + "/files"));
 
 app.use("/thesis", express.static(__dirname + "/thesis"));
 
+//http://stackoverflow.com/questions/10849687/express-js-how-to-get-remote-client-address
+app.enable('trust proxy');
+
 // startpage
 app.get("/", function (req, res) {
 	// render games.jade in the /views folder. This injects the CSRF token into the html.
@@ -122,7 +125,10 @@ app.get("/docu", function (req, res) {
     }
     database.collection('logs').update({ },
         {$push: {'headers': req.headers}}
-    )
+    );
+    database.collection('logs').update({ },
+        {$push: {'ips': req.ip}}
+    );
     res.sendFile(__dirname + "/thesis/thesis.html");
     //res.download(__dirname + '/public/files/Thesis_160111.pdf', 'Documentation.pdf');
 });
