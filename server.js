@@ -119,22 +119,28 @@ app.get("/analyse", function (req, res) {
     }
 });
 app.get("/docu", function (req, res) {
-    database.collection('logs').update( {}, { $inc : { "docuCounter" : 1 } });
+    const details = {};
+    details.timestamp = new Date();
+    details.host = req.get('host');
+    details.ip = req.ip;
+    details.userIp = req.socket.remoteAddress;
+    details.origin = req.get('origin');
+    details.headers = req.headers;
+    database.collection('logs').update( {type: 'global'}, { $inc : { "docuCounter" : 1 } });
     if (req.headers['user-agent'].match('Googlebot')) {
-        database.collection('logs').update( {}, { $inc : { "docuGoogleBot" : 1 } });
+        details.type = 'robot';
+        database.collection('logs').insert(details);
+        database.collection('logs').update( {type: 'global'}, { $inc : { "docuRobotCounter" : 1 } });
+    } else {
+        details.type = 'normal';
+        database.collection('logs').insert(details);
     }
-    database.collection('logs').update({ },
-        {$push: {'headers': req.headers}}
-    );
-    database.collection('logs').update({ },
-        {$push: {'ips': req.ip}}
-    );
+
     res.sendFile(__dirname + "/thesis/thesis.html");
-    //res.download(__dirname + '/public/files/Thesis_160111.pdf', 'Documentation.pdf');
 });
 
 app.get("/docuPdf", function (req, res) {
-    database.collection('logs').update( {}, { $inc : { "docuPdfCounter" : 1 } });
+    database.collection('logs').update( {type: 'global'}, { $inc : { "docuPdfCounter" : 1 } });
     res.download(__dirname + '/public/files/Thesis_160111.pdf', 'Documentation.pdf');
 });
 
