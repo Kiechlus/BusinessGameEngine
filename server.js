@@ -120,6 +120,9 @@ app.get("/docu", function (req, res) {
     if (req.headers['user-agent'].match('Googlebot')) {
         database.collection('logs').update( {}, { $inc : { "docuGoogleBot" : 1 } });
     }
+    database.collection('logs').update({ },
+        {$push: {'headers': req.headers}}
+    )
     res.sendFile(__dirname + "/thesis/thesis.html");
     //res.download(__dirname + '/public/files/Thesis_160111.pdf', 'Documentation.pdf');
 });
