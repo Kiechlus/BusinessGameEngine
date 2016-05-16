@@ -155,6 +155,10 @@ app.get("/docu/googlec9f521b773a8e6db.html", function (req, res) {
     res.sendFile(__dirname + "/thesis/googlec9f521b773a8e6db.html");
 });
 
+app.get("/googlec9f521b773a8e6db.html", function (req, res) {
+    res.sendFile(__dirname + "/thesis/googlec9f521b773a8e6db.html");
+});
+
 
 // Return the code of a specific game
 app.get("/getCode", function (req, res) {
