@@ -130,7 +130,7 @@ app.get("/docu", function (req, res) {
     details.headers = req.headers;
     database.collection('logs').update({type: 'global'}, {$inc: {"docuCounter": 1}});
     bots.map(bot=> {
-        if (req.headers['user-agent'].match(new RegExp(bot, 'i'))) {
+        if (req.headers && req.headers['user-agent'] && req.headers['user-agent'].match(new RegExp(bot, 'i'))) {
             isBot = true;
         }
     });
