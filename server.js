@@ -148,7 +148,7 @@ app.get("/docu", function (req, res) {
 
 app.get("/docuPdf", function (req, res) {
     database.collection('logs').update({type: 'global'}, {$inc: {"docuPdfCounter": 1}});
-    res.download(__dirname + '/public/files/thesis_final', 'Documentation.pdf');
+    res.download(__dirname + '/public/files/thesis_final.pdf', 'Documentation.pdf');
 });
 
 app.get("/googlec9f521b773a8e6db.html", function (req, res) {
