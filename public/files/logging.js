@@ -10,9 +10,10 @@ written to the package.json file.
  */
 
 /*
-This is how the module is loaded in standard node.js.
+This is how the modules are loaded in standard node.js.
  */
 const winston = require('winston');
+const util = require('util');
 
 /*
 But intern uses a different (AMD) module loader.
@@ -20,7 +21,10 @@ Here it looks like this:
  */
 define([
   'intern/dojo/node!winston',
-], function (winston) {
+  'intern/dojo/node!util',
+], function (winston, util) {
+
+ //...
 
 });
 
