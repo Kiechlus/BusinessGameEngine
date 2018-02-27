@@ -1,3 +1,3 @@
-Available at http://games.fkmt.de
+Available at https://businessgamearchitecture-xgllfwixhg.now.sh/ 
 Detailled documentation and installation guide available at
-http://games.fkmt.de/docu
+https://businessgamearchitecture-xgllfwixhg.now.sh/docu
